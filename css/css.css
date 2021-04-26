@@ -34,3 +34,7 @@
   	text-align: center;
   	color: #fff;
 }
+.bg-unclear {
+    height: 100px;
+  	background-color: rgba( 0, 0, 0, 0.55 );
+}
