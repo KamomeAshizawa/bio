@@ -4,27 +4,38 @@
 .profile{
 	text-align:center
 }
+.indent {
+  text-indent: 1rem;
+}
+
+.novel-cover {
+	height: 300px;
+    width: 213px;
+    display: block;
+    margin: 10px auto;
+}
+
 .cover-img {
-	height: 600px;
+	height: 300px;
     display: table;
     width: 100%;
     background-size: cover;
 }
 @media only screen and (min-width: 1500px) {
 	.cover-img {
-		height: 600px;
+		height: 300px;
 	}
 }
 
 @media only screen and (min-width : 768px) and (max-width : 1200px) {
 	.cover-img {
-		height: 500px;
+		height: 300px;
 	}
 }
 
 @media only screen and (max-width: 479px) {
 	.cover-img {
-		height: 200px;
+		height: 100px;
 		margin-top: 10%;
 	}
 }
