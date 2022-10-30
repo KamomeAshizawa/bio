@@ -49,3 +49,11 @@
     height: 100px;
   	background-color: rgba( 0, 0, 0, 0.55 );
 }
+
+.novel {
+ -webkit-touch-callout:none;
+ -webkit-user-select:none;
+ -moz-user-select:none;
+ -ms-user-select:none;
+ user-select:none
+}
