@@ -8,11 +8,39 @@
   text-indent: 1rem;
 }
 
+.card-body2 {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  font-size: 0.8rem;
+}
+
+.profile-name {
+    margin-bottom: 0.2rem;
+}
+
+.profile-text {
+    margin-bottom: 0.2rem;
+    text-align:left;
+}
+
+.profile-img {
+    margin: 10px auto;
+}
+
 .novel-cover {
-	height: 300px;
-    width: 213px;
+	height: 200px;
     display: block;
     margin: 10px auto;
+}
+
+.novel-header {
+	height: 126px;
+    width: 300px;
+    display: block;
+    margin: 10px auto;
+    margin-top: 47px;
+    margin-bottom: 47px;
 }
 
 .cover-img {
