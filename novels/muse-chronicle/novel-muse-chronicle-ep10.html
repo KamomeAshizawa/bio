@@ -1,0 +1,930 @@
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C1DKWQW2BF"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-C1DKWQW2BF');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>裸足の旅立ち - ミューズ・クロニクル：硝子の靴と泥の足 - 葦沢かもめ</title>
+	<meta name="description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』裸足の旅立ちを公開しています。">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="Twitter:site" content="@AshizawaKamome">
+	<meta name="twitter:title" content="裸足の旅立ち - ミューズ・クロニクル：硝子の靴と泥の足">
+	<meta name="twitter:description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』裸足の旅立ちを公開しています。">
+	<meta name="twitter:image" content="https://kamomeashizawa.github.io/bio/img/card02.png">
+
+	<meta http-equiv="Content-Language" content="ja">
+	<meta name="google" content="notranslate">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon_kamome.ico" type="image/vnd.microsoft.icon">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+
+	<style>
+		/* カスタム設定 */
+		:root {
+			--c-gold: #d4af37;
+			--c-gold-dim: #8a7326;
+			--c-dark: #0a0a0c;
+			--c-dark-blue: #0f172a;
+			--c-accent: #7c3aed;
+		}
+
+		body {
+			background-color: var(--c-dark);
+			color: #e2e8f0;
+			font-family: 'Shippori Mincho', serif;
+			overflow-x: hidden;
+		}
+
+		.font-cinzel {
+			font-family: 'Cinzel', serif;
+		}
+
+		/* 背景キャンバス */
+		#particle-canvas {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: radial-gradient(circle at center, #1a1b26 0%, #000000 100%);
+		}
+
+		/* スクロールアニメーション */
+		.reveal-on-scroll {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+			filter: blur(5px);
+		}
+
+		.reveal-on-scroll.is-visible {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
+
+		/* 装飾的な境界線 */
+		.ornamental-border {
+			border: 1px solid transparent;
+			border-image: linear-gradient(to right, transparent, var(--c-gold-dim), transparent) 1;
+		}
+
+		/* 光るテキスト効果 */
+		.glow-text {
+			text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+		}
+
+		/* 古文書風テクスチャ */
+		.texture-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 50;
+			opacity: 0.05;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+		}
+
+		/* 魔法陣風の回転装飾 */
+		.magic-circle {
+			animation: spin 60s linear infinite;
+		}
+		@keyframes spin { 100% { transform: rotate(360deg); } }
+
+		/* エピソードコンテンツ */
+		.episode-header-content {
+			min-height: 50vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 3rem 1rem;
+		}
+
+		.episode-header-content h1 {
+			font-size: 3.5rem;
+			font-weight: bold;
+			color: #fcd34d;
+			margin-bottom: 1rem;
+		}
+
+		.episode-header-content p {
+			color: #cbd5e1;
+		}
+
+		.episode-content {
+			font-size: 1.05rem;
+			line-height: 2;
+			color: #cbd5e1;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.episode-content p {
+			margin-bottom: 2rem;
+			text-align: justify;
+			text-indent: 2em;
+		}
+
+		.episode-content p:first-of-type {
+			text-indent: 0;
+		}
+
+		.scene-break {
+			text-align: center;
+			margin: 3rem 0;
+			color: #8a7326;
+			font-size: 1.5rem;
+		}
+
+		/* ナビゲーション */
+		.navigation-buttons {
+			margin-top: 3rem;
+			margin-bottom: 3rem;
+			display: flex;
+			justify-content: center;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.navigation-buttons a {
+			padding: 0.75rem 1.5rem;
+			background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			text-decoration: none;
+			border-radius: 0.25rem;
+			transition: opacity 0.3s ease;
+			display: inline-block;
+		}
+
+		.navigation-buttons a:hover {
+			opacity: 0.8;
+			text-decoration: none;
+			color: white;
+		}
+
+		/* ヘッダーナビゲーション */
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 40;
+			padding: 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			mix-blend-mode: difference;
+			opacity: 0.8;
+			background: transparent;
+		}
+
+		header .nav-title {
+			color: #fbbf24;
+			font-family: 'Cinzel', serif;
+			letter-spacing: 0.15em;
+			font-size: 0.875rem;
+		}
+
+		header .nav-subtitle {
+			color: #94a3b8;
+			font-size: 0.75rem;
+			letter-spacing: 0.05em;
+		}
+
+		/* コンテナ調整 */
+		main {
+			position: relative;
+			z-index: 10;
+			max-width: 56rem;
+			margin: 0 auto;
+			padding: 0 1.5rem 8rem 1.5rem;
+			padding-top: 5rem;
+		}
+
+		/* セクションパディング */
+		section {
+			padding: 6rem 0;
+		}
+
+		/* フッター */
+		footer {
+			margin-top: 5rem;
+			padding-bottom: 5rem;
+			text-align: right;
+		}
+
+		footer .footer-content {
+			display: inline-block;
+			text-align: left;
+		}
+
+		footer .footer-label {
+			font-size: 0.875rem;
+			color: #64748b;
+			letter-spacing: 0.1em;
+			font-family: 'Cinzel', serif;
+			margin-bottom: 0.5rem;
+		}
+
+		footer .footer-text {
+			font-size: 1rem;
+			color: #d4af37;
+			font-family: 'Shippori Mincho', serif;
+		}
+	</style>
+</head>
+<body class="antialiased relative">
+
+	<!-- 背景キャンバス -->
+	<canvas id="particle-canvas"></canvas>
+	<!-- ノイズテクスチャ -->
+	<div class="texture-overlay"></div>
+
+	<header>
+		<div id="navbarloc">
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="../../index.html">Kamome Ashizawa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  </nav>
+	</header>
+
+<div class="container" style="background-color: var(--c-dark); padding: 0;">
+
+	<div class="page-header" id="episode-header" style="background-color: var(--c-dark); margin-top: 4rem; padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="episode-header-content reveal-on-scroll">
+					<div style="margin-bottom: 1.5rem;">
+						<svg style="width: 4rem; height: 4rem; color: #d4af37; margin: 0 auto; animation: spin 60s linear infinite;" class="magic-circle" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+							<circle cx="50" cy="50" r="45" />
+							<rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)" />
+						</svg>
+					</div>
+					<p style="color: #8a7326; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1rem; font-family: 'Cinzel', serif;">MUSE CHRONICLE</p>
+					<h1 style="font-size: 3.5rem; font-weight: bold; color: #fcd34d; margin-bottom: 1rem;">
+						裸足の旅立ち
+					</h1>
+					<p style="font-size: 1.25rem; color: #cbd5e1; margin-bottom: 1.5rem; font-family: 'Shippori Mincho', serif;">
+						ミューズ・クロニクル：硝子の靴と泥の足
+					</p>
+					<div style="height: 6rem; width: 1px; background: linear-gradient(to bottom, #d4af37, transparent); margin: 2.5rem auto 0;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-header" id="episode-content" style="background-color: var(--c-dark); padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div style="padding: 2rem; background: rgba(15, 23, 42, 0.6); border-left: 2px solid rgba(212, 175, 55, 0.5); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">
+					<div class="episode-content">
+					<p>
+						旅立ちは、いつも裸足だ。
+					</p>
+					<p>
+						生まれた時も、死ぬ時も、人は何も持っていない。
+					</p>
+					<p>
+						そして――新しい人生を始める時も、きっと同じなんだ。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						判決は、予想よりも軽かった。
+					</p>
+					<p>
+						リナは、更生施設での五年間の矯正教育。
+					</p>
+					<p>
+						俺は、三年間の保護観察処分。
+					</p>
+					<p>
+						「被告人アルド・ミラーは、妹を救うために自首したこと、および実際の襲撃行為には関与していないことを考慮し、刑を減じる」
+					</p>
+					<p>
+						裁判長は、そう言った。
+					</p>
+					<p>
+						法廷がざわめいた。
+					</p>
+					<p>
+						でも、俺は複雑な気持ちだった。
+					</p>
+					<p>
+						リナと一緒に罪を償いたかったのに、俺だけ軽い刑になってしまった。
+					</p>
+					<p>
+						リナの方を見ると、彼女は小さく笑っていた。
+					</p>
+					<p>
+						そして、口パクで言った。
+					</p>
+					<p>
+						「良かったね、兄さん」
+					</p>
+					<p>
+						その笑顔を見て、俺は――涙が止まらなかった。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						判決から一週間後。
+					</p>
+					<p>
+						俺は、更生施設を訪れた。
+					</p>
+					<p>
+						リナとの最後の面会が許可されたからだ。明日、俺は保護観察処分で釈放される。リナは、あと五年間ここに残る。
+					</p>
+					<p>
+						面会室で、リナはいつもより明るい表情をしていた。
+					</p>
+					<p>
+						「兄さん、おめでとう」
+					</p>
+					<p>
+						「リナ……」
+					</p>
+					<p>
+						「もう、そんな顔しないでよ。私、ちゃんと更生するから」
+					</p>
+					<p>
+						リナは、笑った。
+					</p>
+					<p>
+						「ここ、意外と悪くないのよ。教育プログラムもあるし、図書館もあるし」
+					</p>
+					<p>
+						「そうか……」
+					</p>
+					<p>
+						「それに、ソフィアさんが時々来てくれるの。歴史の話とか、下層の改革の話とか――すごく面白いわ」
+					</p>
+					<p>
+						「ソフィアが？」
+					</p>
+					<p>
+						「うん。あの人、本当にいい人ね。私、最初は偽善者だと思ってたけど……違った」
+					</p>
+					<p>
+						リナの目が、柔らかくなった。
+					</p>
+					<p>
+						「あの人、本気で世界を変えようとしてる。上層と下層の壁を壊して、みんなが平等に歴史を学べる社会を作ろうとしてる」
+					</p>
+					<p>
+						「そうか……」
+					</p>
+					<p>
+						「だから、私もそれを手伝いたいって思うの。ここで勉強して、出所したら――ソフィアさんと一緒に、本当の改革をしたい」
+					</p>
+					<p>
+						リナの言葉に、俺は驚いた。
+					</p>
+					<p>
+						あの憎悪に満ちていたリナが、今はこんなに前向きになっている。
+					</p>
+					<p>
+						「良かった……」
+					</p>
+					<p>
+						俺は、涙を拭った。
+					</p>
+					<p>
+						「お前が、未来を見つけてくれて」
+					</p>
+					<p>
+						「兄さんこそ、これからどうするの？」
+					</p>
+					<p>
+						「俺は……」
+					</p>
+					<p>
+						俺は、少し考えた。
+					</p>
+					<p>
+						「護衛官の仕事は、クビになった。当然だけどな」
+					</p>
+					<p>
+						「ごめんね……」
+					</p>
+					<p>
+						「謝るな。これは、俺が選んだことだ」
+					</p>
+					<p>
+						俺は、笑った。
+					</p>
+					<p>
+						「でも、ソフィアが新しい仕事を紹介してくれたんだ」
+					</p>
+					<p>
+						「本当!?」
+					</p>
+					<p>
+						「ああ。下層の子供たちに、教育を提供するNPO団体。そこで、警備と教育補助の仕事をすることになった」
+					</p>
+					<p>
+						「それって……」
+					</p>
+					<p>
+						「ああ、給料は護衛官の十分の一だ。上層には住めない。でも――」
+					</p>
+					<p>
+						俺は、リナの目を見つめた。
+					</p>
+					<p>
+						「お前が教えてくれたんだ。綺麗な場所で嘘をつくより、泥の中で本当のことをする方が大事だって」
+					</p>
+					<p>
+						リナの目から、涙が溢れた。
+					</p>
+					<p>
+						「兄さん……」
+					</p>
+					<p>
+						「だから、俺はこれから――お前が守ろうとしていた下層の子供たちを、守っていく」
+					</p>
+					<p>
+						「ありがとう……」
+					</p>
+					<p>
+						リナは、アクリル板に額を押し当てた。
+					</p>
+					<p>
+						「兄さん、大好き」
+					</p>
+					<p>
+						「俺も、お前が大好きだ」
+					</p>
+					<p>
+						俺も、額を押し当てた。
+					</p>
+					<p>
+						透明な壁越しに、俺たちの額が触れ合った。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						その夜。
+					</p>
+					<p>
+						釈放される前に、俺は一つだけやりたいことがあった。
+					</p>
+					<p>
+						看守に許可を取り、俺は荷物置き場に向かった。
+					</p>
+					<p>
+						そこには、逮捕された時に押収された俺の私物が保管されていた。
+					</p>
+					<p>
+						財布、鍵、そして――。
+					</p>
+					<p>
+						白い靴の箱。
+					</p>
+					<p>
+						俺は、その箱を手に取った。
+					</p>
+					<p>
+						中を開ける。
+					</p>
+					<p>
+						純白のスニーカーが、まだそこにあった。
+					</p>
+					<p>
+						片方だけ、泥で汚れたまま。
+					</p>
+					<p>
+						リナが、一度だけ履いてみた痕跡。
+					</p>
+					<p>
+						俺は、その靴を見つめた。
+					</p>
+					<p>
+						そして――決心した。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						翌朝。
+					</p>
+					<p>
+						釈放の手続きを終えた俺は、更生施設の門を出た。
+					</p>
+					<p>
+						久しぶりに見る、外の世界。
+					</p>
+					<p>
+						下層の灰色の空、湿気を含んだ空気、遠くで響く機械音。
+					</p>
+					<p>
+						でも、不思議と――懐かしかった。
+					</p>
+					<p>
+						ここが、俺の本当の居場所なんだ。
+					</p>
+					<p>
+						「アルド！」
+					</p>
+					<p>
+						声がした。
+					</p>
+					<p>
+						振り向くと、ソフィアが立っていた。
+					</p>
+					<p>
+						「お迎えに来たわよ」
+					</p>
+					<p>
+						「ソフィア……ありがとうございます」
+					</p>
+					<p>
+						「さあ、行きましょう。新しい職場に案内するわ」
+					</p>
+					<p>
+						俺たちは、下層の路地を歩き始めた。
+					</p>
+					<p>
+						足元は、水たまりだらけだった。
+					</p>
+					<p>
+						泥が跳ねる。
+					</p>
+					<p>
+						でも、俺は気にしなかった。
+					</p>
+					<p>
+						そして――ふと、手に持っていた靴箱のことを思い出した。
+					</p>
+					<p>
+						「ソフィア、ちょっと待ってください」
+					</p>
+					<p>
+						「どうしたの？」
+					</p>
+					<p>
+						俺は、靴箱を開けた。
+					</p>
+					<p>
+						そして――中の白い靴を、一足ずつ取り出した。
+					</p>
+					<p>
+						「アルド、それ……」
+					</p>
+					<p>
+						「リナへのプレゼントだったんです」
+					</p>
+					<p>
+						俺は、靴を見つめた。
+					</p>
+					<p>
+						「でも、もういらない」
+					</p>
+					<p>
+						そして――靴を、近くのダストシュート（廃棄口）に投げ込んだ。
+					</p>
+					<p>
+						白い靴が、闇の中に消えていった。
+					</p>
+					<p>
+						綺麗な嘘の象徴が、負の歴史とともに葬られていく。
+					</p>
+					<p>
+						「こんな硝子の靴は、もういらない」
+					</p>
+					<p>
+						俺は、呟いた。
+					</p>
+					<p>
+						「これからは、裸足で歩きます」
+					</p>
+					<p>
+						ソフィアは、少し驚いた顔をした。
+					</p>
+					<p>
+						でも、すぐに微笑んだ。
+					</p>
+					<p>
+						「そう。なら、一緒に歩きましょう」
+					</p>
+					<p>
+						「はい」
+					</p>
+					<p>
+						俺たちは、再び歩き出した。
+					</p>
+					<p>
+						泥だらけの道を。
+					</p>
+					<p>
+						でも、その道こそが――本当の未来へと続く道なんだ。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						三ヶ月後。
+					</p>
+					<p>
+						俺は、下層の教育施設で働いていた。
+					</p>
+					<p>
+						子供たちに、読み書きを教え、時には護身術も教えた。
+					</p>
+					<p>
+						給料は安かったけれど、やりがいがあった。
+					</p>
+					<p>
+						そして――毎週、リナの面会に通った。
+					</p>
+					<p>
+						リナは、着実に更生していた。
+					</p>
+					<p>
+						施設の図書館で歴史を学び、ソフィアから改革運動について学び、やがて模範囚として他の受刑者たちの指導も任されるようになった。
+					</p>
+					<p>
+						「兄さん、聞いて！」
+					</p>
+					<p>
+						ある日の面会で、リナは興奮した様子で言った。
+					</p>
+					<p>
+						「ソフィアさんが、新しい展示企画を計画してるの！」
+					</p>
+					<p>
+						「どんな？」
+					</p>
+					<p>
+						「『忘れられた声々』っていう展示。下層の人々の証言を集めて、検閲されなかった本当の歴史を展示するんだって」
+					</p>
+					<p>
+						「それは……すごいな」
+					</p>
+					<p>
+						「でしょ!?それで、私も協力することになったの。ここから、手記を書いて送るんだ」
+					</p>
+					<p>
+						リナの目は、輝いていた。
+					</p>
+					<p>
+						憎悪ではなく、希望の光で。
+					</p>
+					<p>
+						「良かった、リナ」
+					</p>
+					<p>
+						「うん。私、やっと分かったの」
+					</p>
+					<p>
+						リナは、微笑んだ。
+					</p>
+					<p>
+						「システムを壊すんじゃなくて、システムを変えることが大事なんだって」
+					</p>
+					<p>
+						「そうだな」
+					</p>
+					<p>
+						「そして――兄さんと一緒に、変えていきたい」
+					</p>
+					<p>
+						「ああ、一緒に」
+					</p>
+					<p>
+						俺たちは、アクリル板越しに手を重ねた。
+					</p>
+					<p>
+						泥の中から始まった、新しい旅路。
+					</p>
+					<p>
+						綺麗な靴ではなく、裸足で歩く道。
+					</p>
+					<p>
+						でも、その道こそが――。
+					</p>
+					<p>
+						俺たちの、本当の人生なんだ。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						【五年後】
+					</p>
+					<p>
+						リナが出所する日。
+					</p>
+					<p>
+						俺は、更生施設の門の前で待っていた。
+					</p>
+					<p>
+						そして――門が開き、リナが出てきた。
+					</p>
+					<p>
+						二十二歳になった妹は、少し大人びた顔をしていたけれど、笑顔は昔のままだった。
+					</p>
+					<p>
+						「兄さん！」
+					</p>
+					<p>
+						「おかえり、リナ」
+					</p>
+					<p>
+						俺たちは、抱き合った。
+					</p>
+					<p>
+						もう、アクリル板はない。
+					</p>
+					<p>
+						手錠もない。
+					</p>
+					<p>
+						ただ、本当の兄妹として。
+					</p>
+					<p>
+						「さあ、行こうか」
+					</p>
+					<p>
+						「うん！」
+					</p>
+					<p>
+						俺たちは、並んで歩き出した。
+					</p>
+					<p>
+						下層の泥道を。
+					</p>
+					<p>
+						裸足で。
+					</p>
+					<p>
+						でも、その足取りは――どんな綺麗な靴を履いた時よりも、確かだった。
+					</p>
+					<p>
+						泥の中にこそ、本当の人生がある。
+					</p>
+					<p>
+						硝子の靴ではなく、泥の足で――。
+					</p>
+					<p>
+						俺たちは、新しい未来へと歩いていく。
+					</p>
+					<p>
+						（完）
+					</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+
+	<div class="row" style="background-color: var(--c-dark); padding: 0 2rem;">
+		<div class="col-lg-10 offset-lg-1">
+			<hr style="border-color: rgba(212, 175, 55, 0.3);">
+			<div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+				<a href="novel-muse-chronicle-ep09.html" class="btn btn-secondary">&larr; 前の話</a>
+				<a href="novel-muse-chronicle.html" class="btn btn-primary">話一覧に戻る</a>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+
+	<script>
+		// パーティクルエフェクト
+		const canvas = document.getElementById('particle-canvas');
+		const ctx = canvas.getContext('2d');
+		let particles = [];
+		let animationId;
+
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+
+		class Particle {
+			constructor() {
+				this.reset();
+			}
+
+			reset() {
+				this.x = Math.random() * canvas.width;
+				this.y = Math.random() * canvas.height;
+				this.size = Math.random() * 2 + 0.5;
+				const colors = ['rgba(212, 175, 55, ', 'rgba(100, 116, 139, '];
+				this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+				this.opacity = Math.random() * 0.5;
+				this.speedY = Math.random() * -0.5 - 0.1;
+				this.speedX = Math.random() * 0.4 - 0.2;
+			}
+
+			update() {
+				this.y += this.speedY;
+				this.x += this.speedX;
+
+				if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+					this.reset();
+					this.y = canvas.height;
+				}
+			}
+
+			draw() {
+				ctx.fillStyle = this.colorBase + this.opacity + ')';
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+
+		function initParticles() {
+			resizeCanvas();
+			particles = [];
+			const particleCount = Math.min(window.innerWidth / 5, 100);
+			for (let i = 0; i < particleCount; i++) {
+				particles.push(new Particle());
+			}
+		}
+
+		function animateParticles() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			particles.forEach(p => {
+				p.update();
+				p.draw();
+			});
+			animationId = requestAnimationFrame(animateParticles);
+		}
+
+		window.addEventListener('resize', () => {
+			resizeCanvas();
+			initParticles();
+		});
+
+		initParticles();
+		animateParticles();
+
+		// スクロールアニメーション
+		const observerOptions = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.15
+		};
+
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
+			observer.observe(section);
+		});
+	</script>
+
+<nav class="navbar navbar-expand-xl bg-dark navbar-dark bottom justify-content-center">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+		  <a class="nav-link">© 2021 Kamome Ashizawa</a>
+		</li>
+	</ul>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $('.bs-component [data-toggle="popover"]').popover();
+  $('.bs-component [data-toggle="tooltip"]').tooltip();
+</script>
+</body>
+</html>
+
+

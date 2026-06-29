@@ -1,0 +1,756 @@
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C1DKWQW2BF"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-C1DKWQW2BF');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>革命前夜のワルツ - ミューズ・クロニクル：硝子の靴と泥の足 - 葦沢かもめ</title>
+	<meta name="description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』革命前夜のワルツを公開しています。">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="Twitter:site" content="@AshizawaKamome">
+	<meta name="twitter:title" content="革命前夜のワルツ - ミューズ・クロニクル：硝子の靴と泥の足">
+	<meta name="twitter:description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』革命前夜のワルツを公開しています。">
+	<meta name="twitter:image" content="https://kamomeashizawa.github.io/bio/img/card02.png">
+
+	<meta http-equiv="Content-Language" content="ja">
+	<meta name="google" content="notranslate">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon_kamome.ico" type="image/vnd.microsoft.icon">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+
+	<style>
+		/* カスタム設定 */
+		:root {
+			--c-gold: #d4af37;
+			--c-gold-dim: #8a7326;
+			--c-dark: #0a0a0c;
+			--c-dark-blue: #0f172a;
+			--c-accent: #7c3aed;
+		}
+
+		body {
+			background-color: var(--c-dark);
+			color: #e2e8f0;
+			font-family: 'Shippori Mincho', serif;
+			overflow-x: hidden;
+		}
+
+		.font-cinzel {
+			font-family: 'Cinzel', serif;
+		}
+
+		/* 背景キャンバス */
+		#particle-canvas {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: radial-gradient(circle at center, #1a1b26 0%, #000000 100%);
+		}
+
+		/* スクロールアニメーション */
+		.reveal-on-scroll {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+			filter: blur(5px);
+		}
+
+		.reveal-on-scroll.is-visible {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
+
+		/* 装飾的な境界線 */
+		.ornamental-border {
+			border: 1px solid transparent;
+			border-image: linear-gradient(to right, transparent, var(--c-gold-dim), transparent) 1;
+		}
+
+		/* 光るテキスト効果 */
+		.glow-text {
+			text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+		}
+
+		/* 古文書風テクスチャ */
+		.texture-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 50;
+			opacity: 0.05;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+		}
+
+		/* 魔法陣風の回転装飾 */
+		.magic-circle {
+			animation: spin 60s linear infinite;
+		}
+		@keyframes spin { 100% { transform: rotate(360deg); } }
+
+		/* エピソードコンテンツ */
+		.episode-header-content {
+			min-height: 50vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 3rem 1rem;
+		}
+
+		.episode-header-content h1 {
+			font-size: 3.5rem;
+			font-weight: bold;
+			color: #fcd34d;
+			margin-bottom: 1rem;
+		}
+
+		.episode-header-content p {
+			color: #cbd5e1;
+		}
+
+		.episode-content {
+			font-size: 1.05rem;
+			line-height: 2;
+			color: #cbd5e1;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.episode-content p {
+			margin-bottom: 2rem;
+			text-align: justify;
+			text-indent: 2em;
+		}
+
+		.episode-content p:first-of-type {
+			text-indent: 0;
+		}
+
+		.scene-break {
+			text-align: center;
+			margin: 3rem 0;
+			color: #8a7326;
+			font-size: 1.5rem;
+		}
+
+		/* ナビゲーション */
+		.navigation-buttons {
+			margin-top: 3rem;
+			margin-bottom: 3rem;
+			display: flex;
+			justify-content: center;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.navigation-buttons a {
+			padding: 0.75rem 1.5rem;
+			background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			text-decoration: none;
+			border-radius: 0.25rem;
+			transition: opacity 0.3s ease;
+			display: inline-block;
+		}
+
+		.navigation-buttons a:hover {
+			opacity: 0.8;
+			text-decoration: none;
+			color: white;
+		}
+
+		/* ヘッダーナビゲーション */
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 40;
+			padding: 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			mix-blend-mode: difference;
+			opacity: 0.8;
+			background: transparent;
+		}
+
+		header .nav-title {
+			color: #fbbf24;
+			font-family: 'Cinzel', serif;
+			letter-spacing: 0.15em;
+			font-size: 0.875rem;
+		}
+
+		header .nav-subtitle {
+			color: #94a3b8;
+			font-size: 0.75rem;
+			letter-spacing: 0.05em;
+		}
+
+		/* コンテナ調整 */
+		main {
+			position: relative;
+			z-index: 10;
+			max-width: 56rem;
+			margin: 0 auto;
+			padding: 0 1.5rem 8rem 1.5rem;
+			padding-top: 5rem;
+		}
+
+		/* セクションパディング */
+		section {
+			padding: 6rem 0;
+		}
+
+		/* フッター */
+		footer {
+			margin-top: 5rem;
+			padding-bottom: 5rem;
+			text-align: right;
+		}
+
+		footer .footer-content {
+			display: inline-block;
+			text-align: left;
+		}
+
+		footer .footer-label {
+			font-size: 0.875rem;
+			color: #64748b;
+			letter-spacing: 0.1em;
+			font-family: 'Cinzel', serif;
+			margin-bottom: 0.5rem;
+		}
+
+		footer .footer-text {
+			font-size: 1rem;
+			color: #d4af37;
+			font-family: 'Shippori Mincho', serif;
+		}
+	</style>
+</head>
+<body class="antialiased relative">
+
+	<!-- 背景キャンバス -->
+	<canvas id="particle-canvas"></canvas>
+	<!-- ノイズテクスチャ -->
+	<div class="texture-overlay"></div>
+
+	<header>
+		<div id="navbarloc">
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="../../index.html">Kamome Ashizawa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  </nav>
+	</header>
+
+<div class="container" style="background-color: var(--c-dark); padding: 0;">
+
+	<div class="page-header" id="episode-header" style="background-color: var(--c-dark); margin-top: 4rem; padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="episode-header-content reveal-on-scroll">
+					<div style="margin-bottom: 1.5rem;">
+						<svg style="width: 4rem; height: 4rem; color: #d4af37; margin: 0 auto; animation: spin 60s linear infinite;" class="magic-circle" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+							<circle cx="50" cy="50" r="45" />
+							<rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)" />
+						</svg>
+					</div>
+					<p style="color: #8a7326; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1rem; font-family: 'Cinzel', serif;">MUSE CHRONICLE</p>
+					<h1 style="font-size: 3.5rem; font-weight: bold; color: #fcd34d; margin-bottom: 1rem;">
+						革命前夜のワルツ
+					</h1>
+					<p style="font-size: 1.25rem; color: #cbd5e1; margin-bottom: 1.5rem; font-family: 'Shippori Mincho', serif;">
+						ミューズ・クロニクル：硝子の靴と泥の足
+					</p>
+					<div style="height: 6rem; width: 1px; background: linear-gradient(to bottom, #d4af37, transparent); margin: 2.5rem auto 0;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-header" id="episode-content" style="background-color: var(--c-dark); padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div style="padding: 2rem; background: rgba(15, 23, 42, 0.6); border-left: 2px solid rgba(212, 175, 55, 0.5); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">
+					<div class="episode-content">
+					<p>
+						歴史は、踊る。
+					</p>
+					<p>
+						そう思ったのは、目の前で十八世紀のフランス貴族たちが優雅にワルツを踊っているのを見たからだ。もちろん、それはホログラムだ。実体のない光の粒子が、精巧に人間の姿を模して、音楽に合わせて回転している。ドレスの裾が翻り、シャンデリアの光が宝石に反射し、笑い声が会場に響く。
+					</p>
+					<p>
+						美しい。
+					</p>
+					<p>
+						確かに美しい。
+					</p>
+					<p>
+						でも、これは嘘だ。
+					</p>
+					<p>
+						特別展「フランス革命の夜明け」。博物館惑星ミューズの第三展示室を丸ごと使った大規模な企画展だった。テーマは「革命によって人類が獲得した自由と平等」。会場には、バスティーユ牢獄の襲撃、人権宣言の朗読、そして革命後の共和制樹立を祝う舞踏会が再現されていた。
+					</p>
+					<p>
+						でも、ギロチンで首を切り落とされた貴族たちの断末魔は、ここには存在しない。民衆が飢えて死んでいく様子も、革命後の恐怖政治も、ナポレオンの独裁も――そんな「負の歴史」は、すべて下層（アーカイブ）に封印されている。
+					</p>
+					<p>
+						ここにあるのは、「人類は進歩的で美しい」という綺麗な嘘だけ。
+					</p>
+					<p>
+						俺は、会場の片隅で直立不動の姿勢を保ちながら、そんなことを考えていた。
+					</p>
+					<p>
+						「つまらない顔をしてるわね」
+					</p>
+					<p>
+						不意に、声をかけられた。
+					</p>
+					<p>
+						振り向くと、そこには見覚えのある女性が立っていた。ソフィア・クラインフェルド。上層出身の学芸員で、今回の俺の警備対象だ。彼女は二十六歳、俺より二つ年上で、栗色の髪を後ろで一つに束ねている。眼鏡の奥の瞳は、いつも何かを批判的に見つめているような鋭さを持っていた。
+					</p>
+					<p>
+						「失礼しました。業務中ですので」
+					</p>
+					<p>
+						俺は慌てて姿勢を正した。護衛官が警備対象と私語を交わすのは、本来ならば規則違反だ。でもソフィアは、そんなことを気にする様子もなく、俺の隣に立った。
+					</p>
+					<p>
+						「この展示、どう思う？」
+					</p>
+					<p>
+						「は？」
+					</p>
+					<p>
+						「あなたの個人的な意見を聞いてるの。護衛官としてじゃなくて、一人の人間として」
+					</p>
+					<p>
+						彼女の質問に、俺はどう答えるべきか迷った。正直に答えれば、上司に報告されるかもしれない。でも、嘘をつくのも何か違う気がした。
+					</p>
+					<p>
+						「……綺麗だと思います」
+					</p>
+					<p>
+						「それだけ？」
+					</p>
+					<p>
+						ソフィアの声が、少し冷たくなった。
+					</p>
+					<p>
+						「革命で何万人も死んだのよ。民衆も、貴族も、兵士も。それなのに、ここではまるでダンスパーティーみたいに描かれてる。これが『綺麗』で済むと思う？」
+					</p>
+					<p>
+						俺は何も言えなかった。
+					</p>
+					<p>
+						彼女の言うことは正しい。でも、俺にはそれを肯定する資格がない気がした。だって、俺自身が「綺麗な嘘」を守る仕事をしているから。リナに本当のことを言わず、上層の暮らしが素晴らしいと思い込ませているから。
+					</p>
+					<p>
+						「すみません、俺は……歴史のことはよく分からなくて」
+					</p>
+					<p>
+						「そう。じゃあ、あなたは妹さんに、こんな嘘の世界を見せたいの？」
+					</p>
+					<p>
+						その言葉に、俺は息を呑んだ。
+					</p>
+					<p>
+						「妹……？俺が妹のことを話したって、どうして」
+					</p>
+					<p>
+						「前に聞いたでしょ。あなた、休憩時間にいつも妹さんの話をしてるから。同僚から聞いたのよ」
+					</p>
+					<p>
+						ソフィアは小さく笑った。でも、その笑みには皮肉が混じっていた。
+					</p>
+					<p>
+						「あなたは妹さんを愛してるのね。でも、その愛は本物？それとも、『綺麗な世界』を見せることで、自分の良心を満足させてるだけ？」
+					</p>
+					<p>
+						俺は何も答えられなかった。
+					</p>
+					<p>
+						彼女の言葉が、胸に突き刺さった。まるで、昨夜のリナの冷たい視線を思い出させるように。
+					</p>
+					<p>
+						「私はね、こんな検閲された歴史展示が大嫌いなの」
+					</p>
+					<p>
+						ソフィアは、ホログラムの貴族たちを見つめながら続けた。
+					</p>
+					<p>
+						「痛みを隠して、綺麗な部分だけを見せる。それじゃあ、人は過ちを繰り返すわ。下層（アーカイブ）に封印された『負の遺産』こそ、本当に展示すべきものなのに」
+					</p>
+					<p>
+						「でも、それを見たら、みんな不快になるんじゃ……」
+					</p>
+					<p>
+						「不快でいいのよ。歴史は、不快であるべき時もある。痛みを知らなければ、同じ過ちを繰り返すだけ」
+					</p>
+					<p>
+						彼女の言葉は、正論だった。
+					</p>
+					<p>
+						でも、俺には受け入れられなかった。
+					</p>
+					<p>
+						だって、リナに痛みを見せたくない。あいつには、綺麗な世界だけを見ていてほしい。それが、俺の愛なんだ。
+					</p>
+					<p>
+						「……すみません、俺にはそういう難しいことは」
+					</p>
+					<p>
+						「逃げるのね」
+					</p>
+					<p>
+						ソフィアの声が、冷ややかに響いた。
+					</p>
+					<p>
+						「あなたみたいな人が、このシステムを支えてるのよ。『難しいことは分からない』って顔をして、現状維持に加担する。それが一番罪深いわ」
+					</p>
+					<p>
+						俺は何も言い返せなかった。
+					</p>
+					<p>
+						ただ、胸の奥に、鈍い痛みが広がっていくのを感じた。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						その時だった。
+					</p>
+					<p>
+						会場の照明が、突然消えた。
+					</p>
+					<p>
+						ホログラムの貴族たちが消え、音楽が止まり、シャンデリアの光が失われる。会場は一瞬、完全な暗闇に包まれた。
+					</p>
+					<p>
+						「停電!?」
+					</p>
+					<p>
+						誰かが叫んだ。
+					</p>
+					<p>
+						富裕層のゲストたちがざわめき始める。俺は反射的にソフィアの前に立ち、周囲を警戒した。停電なんて、この博物館では起こるはずがない。予備電源が三重にも備えられているからだ。
+					</p>
+					<p>
+						これは――。
+					</p>
+					<p>
+						「襲撃だ！」
+					</p>
+					<p>
+						俺の予感は、的中した。
+					</p>
+					<p>
+						爆発音が轟いた。
+					</p>
+					<p>
+						会場の入口が吹き飛び、硝煙が流れ込んでくる。悲鳴が上がる。人々が逃げ惑う。俺は腰のホルスターから警棒を抜き、ソフィアを背後に庇った。
+					</p>
+					<p>
+						「下がってください！」
+					</p>
+					<p>
+						「何が起きてるの!?」
+					</p>
+					<p>
+						「分かりません、でも危険です！」
+					</p>
+					<p>
+						煙の中から、黒い影が現れた。
+					</p>
+					<p>
+						五人、いや六人。全員が黒いライダースーツを着て、フルフェイスのマスクで顔を隠している。手には、武器。ナイフ、警棒、そして――銃。
+					</p>
+					<p>
+						「反体制組織『ダスト』だ！」
+					</p>
+					<p>
+						同僚の警備員が叫んだ。
+					</p>
+					<p>
+						ダスト。下層（アーカイブ）を拠点とする、反体制組織。彼らは上層の支配体制を憎み、博物館の展示を「虚偽の歴史」として破壊活動を繰り返している。今まで、上層での大規模な襲撃はなかったはずだ。なぜ、今――。
+					</p>
+					<p>
+						「展示品を破壊しろ！この偽りの歴史を、灰にしてやる！」
+					</p>
+					<p>
+						リーダーらしき人物が叫んだ。
+					</p>
+					<p>
+						メンバーたちが散開し、展示品に向かって突進する。ホログラム装置が破壊され、火花が散る。歴史的な文書のレプリカが引き裂かれ、床に散乱する。
+					</p>
+					<p>
+						「くそっ！」
+					</p>
+					<p>
+						俺は警棒を構えて、最も近い侵入者に向かって走った。
+					</p>
+					<p>
+						相手はナイフを振りかざして応戦してくる。俺は警棒で刃を弾き、相手の足を払った。侵入者が倒れる。でも、すぐに次の敵が襲いかかってきた。
+					</p>
+					<p>
+						二人、三人――数が多すぎる。
+					</p>
+					<p>
+						同僚たちも応戦しているが、組織「ダスト」のメンバーは訓練されている。単なる暴徒ではない。計画的な、プロの集団だ。
+					</p>
+					<p>
+						「ソフィアを狙ってる！」
+					</p>
+					<p>
+						誰かが叫んだ。
+					</p>
+					<p>
+						俺は振り返った。
+					</p>
+					<p>
+						煙の中から、一人の人影がソフィアに向かって走っている。他のメンバーよりも小柄で、動きが速い。まるで影のように、障害物を飛び越えて接近してくる。
+					</p>
+					<p>
+						「させるか！」
+					</p>
+					<p>
+						俺はソフィアの前に飛び出した。
+					</p>
+					<p>
+						そして――その人影と、正面から激突した。
+					</p>
+					<p>
+						相手は軽く、でも驚くほど強い力で俺を押し返してくる。俺は体勢を立て直し、警棒を構えた。
+					</p>
+					<p>
+						「誰だ、お前！」
+					</p>
+					<p>
+						相手は答えない。
+					</p>
+					<p>
+						ただ、フルフェイスのマスクの奥から、冷たい視線が俺を射抜いた。
+					</p>
+					<p>
+						そして、戦いが始まった。
+					</p>
+					<p>
+						相手の動きは、速い。俺の攻撃を紙一重で避け、隙を突いて反撃してくる。関節を狙った打撃、足払い、投げ技――すべてが実戦的で、無駄がない。
+					</p>
+					<p>
+						まるで、スラムで生き抜くための格闘術のようだ。
+					</p>
+					<p>
+						いや、違う。
+					</p>
+					<p>
+						これは――。
+					</p>
+					<p>
+						「まさか……」
+					</p>
+					<p>
+						俺の脳裏に、ある記憶がよぎった。
+					</p>
+					<p>
+						昔、リナに教えた護身術。関節技をかける時の手首のひねり方。足払いの時の重心移動。そして、右足を軸にした回し蹴り。
+					</p>
+					<p>
+						目の前の敵が、今まさにその技を使っている。
+					</p>
+					<p>
+						「嘘だろ……」
+					</p>
+					<p>
+						俺の動きが、一瞬止まった。
+					</p>
+					<p>
+						その隙を突いて、相手のナイフが俺の肩を切り裂いた。
+					</p>
+					<p>
+						痛みが走る。
+					</p>
+					<p>
+						でも、それよりも心が痛かった。
+					</p>
+					<p>
+						「お前、まさか！」
+					</p>
+					<p>
+						俺は叫んだ。
+					</p>
+					<p>
+						相手は何も答えず、再び攻撃を仕掛けてきた。
+					</p>
+					<p>
+						そして――会場の天井から、緊急用の放水装置が作動した。水が降り注ぎ、床が濡れていく。ホログラム装置が完全に停止し、照明も消えた。
+					</p>
+					<p>
+						暗闇と水の中で、俺と敵は、互いを見つめ合っていた。
+					</p>
+					<p>
+						そして俺は、確信した。
+					</p>
+					<p>
+						この敵は――。
+					</p>
+					<p>
+						リナだ。
+					</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+
+	<div class="row" style="background-color: var(--c-dark); padding: 0 2rem;">
+		<div class="col-lg-10 offset-lg-1">
+			<hr style="border-color: rgba(212, 175, 55, 0.3);">
+			<div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+				<a href="novel-muse-chronicle-ep02.html" class="btn btn-secondary">&larr; 前の話</a>
+				<a href="novel-muse-chronicle.html" class="btn btn-primary">話一覧に戻る</a>
+				<a href="novel-muse-chronicle-ep04.html" class="btn btn-secondary">次の話 &rarr;</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+	<script>
+		// パーティクルエフェクト
+		const canvas = document.getElementById('particle-canvas');
+		const ctx = canvas.getContext('2d');
+		let particles = [];
+		let animationId;
+
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+
+		class Particle {
+			constructor() {
+				this.reset();
+			}
+
+			reset() {
+				this.x = Math.random() * canvas.width;
+				this.y = Math.random() * canvas.height;
+				this.size = Math.random() * 2 + 0.5;
+				const colors = ['rgba(212, 175, 55, ', 'rgba(100, 116, 139, '];
+				this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+				this.opacity = Math.random() * 0.5;
+				this.speedY = Math.random() * -0.5 - 0.1;
+				this.speedX = Math.random() * 0.4 - 0.2;
+			}
+
+			update() {
+				this.y += this.speedY;
+				this.x += this.speedX;
+
+				if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+					this.reset();
+					this.y = canvas.height;
+				}
+			}
+
+			draw() {
+				ctx.fillStyle = this.colorBase + this.opacity + ')';
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+
+		function initParticles() {
+			resizeCanvas();
+			particles = [];
+			const particleCount = Math.min(window.innerWidth / 5, 100);
+			for (let i = 0; i < particleCount; i++) {
+				particles.push(new Particle());
+			}
+		}
+
+		function animateParticles() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			particles.forEach(p => {
+				p.update();
+				p.draw();
+			});
+			animationId = requestAnimationFrame(animateParticles);
+		}
+
+		window.addEventListener('resize', () => {
+			resizeCanvas();
+			initParticles();
+		});
+
+		initParticles();
+		animateParticles();
+
+		// スクロールアニメーション
+		const observerOptions = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.15
+		};
+
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
+			observer.observe(section);
+		});
+	</script>
+
+<nav class="navbar navbar-expand-xl bg-dark navbar-dark bottom justify-content-center">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+		  <a class="nav-link">© 2021 Kamome Ashizawa</a>
+		</li>
+	</ul>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $('.bs-component [data-toggle="popover"]').popover();
+  $('.bs-component [data-toggle="tooltip"]').tooltip();
+</script>
+</body>
+</html>
+
+

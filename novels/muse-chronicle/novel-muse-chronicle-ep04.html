@@ -1,0 +1,816 @@
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C1DKWQW2BF"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-C1DKWQW2BF');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>亡霊（レイス）の侵入 - ミューズ・クロニクル：硝子の靴と泥の足 - 葦沢かもめ</title>
+	<meta name="description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』亡霊（レイス）の侵入を公開しています。">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="Twitter:site" content="@AshizawaKamome">
+	<meta name="twitter:title" content="亡霊（レイス）の侵入 - ミューズ・クロニクル：硝子の靴と泥の足">
+	<meta name="twitter:description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』亡霊（レイス）の侵入を公開しています。">
+	<meta name="twitter:image" content="https://kamomeashizawa.github.io/bio/img/card02.png">
+
+	<meta http-equiv="Content-Language" content="ja">
+	<meta name="google" content="notranslate">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon_kamome.ico" type="image/vnd.microsoft.icon">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+
+	<style>
+		/* カスタム設定 */
+		:root {
+			--c-gold: #d4af37;
+			--c-gold-dim: #8a7326;
+			--c-dark: #0a0a0c;
+			--c-dark-blue: #0f172a;
+			--c-accent: #7c3aed;
+		}
+
+		body {
+			background-color: var(--c-dark);
+			color: #e2e8f0;
+			font-family: 'Shippori Mincho', serif;
+			overflow-x: hidden;
+		}
+
+		.font-cinzel {
+			font-family: 'Cinzel', serif;
+		}
+
+		/* 背景キャンバス */
+		#particle-canvas {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: radial-gradient(circle at center, #1a1b26 0%, #000000 100%);
+		}
+
+		/* スクロールアニメーション */
+		.reveal-on-scroll {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+			filter: blur(5px);
+		}
+
+		.reveal-on-scroll.is-visible {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
+
+		/* 装飾的な境界線 */
+		.ornamental-border {
+			border: 1px solid transparent;
+			border-image: linear-gradient(to right, transparent, var(--c-gold-dim), transparent) 1;
+		}
+
+		/* 光るテキスト効果 */
+		.glow-text {
+			text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+		}
+
+		/* 古文書風テクスチャ */
+		.texture-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 50;
+			opacity: 0.05;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+		}
+
+		/* 魔法陣風の回転装飾 */
+		.magic-circle {
+			animation: spin 60s linear infinite;
+		}
+		@keyframes spin { 100% { transform: rotate(360deg); } }
+
+		/* エピソードコンテンツ */
+		.episode-header-content {
+			min-height: 50vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 3rem 1rem;
+		}
+
+		.episode-header-content h1 {
+			font-size: 3.5rem;
+			font-weight: bold;
+			color: #fcd34d;
+			margin-bottom: 1rem;
+		}
+
+		.episode-header-content p {
+			color: #cbd5e1;
+		}
+
+		.episode-content {
+			font-size: 1.05rem;
+			line-height: 2;
+			color: #cbd5e1;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.episode-content p {
+			margin-bottom: 2rem;
+			text-align: justify;
+			text-indent: 2em;
+		}
+
+		.episode-content p:first-of-type {
+			text-indent: 0;
+		}
+
+		.scene-break {
+			text-align: center;
+			margin: 3rem 0;
+			color: #8a7326;
+			font-size: 1.5rem;
+		}
+
+		/* ナビゲーション */
+		.navigation-buttons {
+			margin-top: 3rem;
+			margin-bottom: 3rem;
+			display: flex;
+			justify-content: center;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.navigation-buttons a {
+			padding: 0.75rem 1.5rem;
+			background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			text-decoration: none;
+			border-radius: 0.25rem;
+			transition: opacity 0.3s ease;
+			display: inline-block;
+		}
+
+		.navigation-buttons a:hover {
+			opacity: 0.8;
+			text-decoration: none;
+			color: white;
+		}
+
+		/* ヘッダーナビゲーション */
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 40;
+			padding: 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			mix-blend-mode: difference;
+			opacity: 0.8;
+			background: transparent;
+		}
+
+		header .nav-title {
+			color: #fbbf24;
+			font-family: 'Cinzel', serif;
+			letter-spacing: 0.15em;
+			font-size: 0.875rem;
+		}
+
+		header .nav-subtitle {
+			color: #94a3b8;
+			font-size: 0.75rem;
+			letter-spacing: 0.05em;
+		}
+
+		/* コンテナ調整 */
+		main {
+			position: relative;
+			z-index: 10;
+			max-width: 56rem;
+			margin: 0 auto;
+			padding: 0 1.5rem 8rem 1.5rem;
+			padding-top: 5rem;
+		}
+
+		/* セクションパディング */
+		section {
+			padding: 6rem 0;
+		}
+
+		/* フッター */
+		footer {
+			margin-top: 5rem;
+			padding-bottom: 5rem;
+			text-align: right;
+		}
+
+		footer .footer-content {
+			display: inline-block;
+			text-align: left;
+		}
+
+		footer .footer-label {
+			font-size: 0.875rem;
+			color: #64748b;
+			letter-spacing: 0.1em;
+			font-family: 'Cinzel', serif;
+			margin-bottom: 0.5rem;
+		}
+
+		footer .footer-text {
+			font-size: 1rem;
+			color: #d4af37;
+			font-family: 'Shippori Mincho', serif;
+		}
+	</style>
+</head>
+<body class="antialiased relative">
+
+	<!-- 背景キャンバス -->
+	<canvas id="particle-canvas"></canvas>
+	<!-- ノイズテクスチャ -->
+	<div class="texture-overlay"></div>
+
+	<header>
+		<div id="navbarloc">
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="../../index.html">Kamome Ashizawa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  </nav>
+	</header>
+
+<div class="container" style="background-color: var(--c-dark); padding: 0;">
+
+	<div class="page-header" id="episode-header" style="background-color: var(--c-dark); margin-top: 4rem; padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="episode-header-content reveal-on-scroll">
+					<div style="margin-bottom: 1.5rem;">
+						<svg style="width: 4rem; height: 4rem; color: #d4af37; margin: 0 auto; animation: spin 60s linear infinite;" class="magic-circle" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+							<circle cx="50" cy="50" r="45" />
+							<rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)" />
+						</svg>
+					</div>
+					<p style="color: #8a7326; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1rem; font-family: 'Cinzel', serif;">MUSE CHRONICLE</p>
+					<h1 style="font-size: 3.5rem; font-weight: bold; color: #fcd34d; margin-bottom: 1rem;">
+						亡霊（レイス）の侵入
+					</h1>
+					<p style="font-size: 1.25rem; color: #cbd5e1; margin-bottom: 1.5rem; font-family: 'Shippori Mincho', serif;">
+						ミューズ・クロニクル：硝子の靴と泥の足
+					</p>
+					<div style="height: 6rem; width: 1px; background: linear-gradient(to bottom, #d4af37, transparent); margin: 2.5rem auto 0;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-header" id="episode-content" style="background-color: var(--c-dark); padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div style="padding: 2rem; background: rgba(15, 23, 42, 0.6); border-left: 2px solid rgba(212, 175, 55, 0.5); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">
+					<div class="episode-content">
+					<p>
+						亡霊は、音もなく現れる。
+					</p>
+					<p>
+						そう思ったのは、目の前の敵が放水の中を滑るように移動し、まるで実体を持たない幽霊のように見えたからだ。黒いライダースーツは水を弾き、フルフェイスのマスクは表情を完全に隠している。ただ、その動きだけが――異常なまでに洗練された殺意が、そこに存在している。
+					</p>
+					<p>
+						「逃げろ！」
+					</p>
+					<p>
+						俺は叫んだ。
+					</p>
+					<p>
+						ソフィアを背後に庇いながら、避難ルートを探す。でも、会場の出口はすでに他のダストのメンバーに封鎖されていた。緊急避難口は――そちらも煙で見えない。
+					</p>
+					<p>
+						「アルド、あなた怪我してる！」
+					</p>
+					<p>
+						ソフィアの声が、背後から聞こえた。
+					</p>
+					<p>
+						ああ、そうだった。肩を切られたんだ。血が流れているのが分かる。でも、今はそれどころじゃない。目の前の敵――この小柄な影こそが、最も危険だ。
+					</p>
+					<p>
+						他のダストのメンバーは、展示品の破壊に夢中になっている。でも、この一人だけは違う。最初からソフィアだけを狙っている。まるで、彼女を殺すことが今回の作戦の最優先目標であるかのように。
+					</p>
+					<p>
+						「何者だ、お前は！」
+					</p>
+					<p>
+						俺は警棒を構えて叫んだ。
+					</p>
+					<p>
+						相手は答えない。
+					</p>
+					<p>
+						ただ、マスクの奥から冷たい視線を向けてくる。そして――再び攻撃を仕掛けてきた。
+					</p>
+					<p>
+						速い。
+					</p>
+					<p>
+						俺は警棒で受け止めようとしたが、相手のナイフは予想外の角度から飛んできた。下段からの突き上げ。俺は咄嗟に身を捻って避けたが、ナイフが制服の裾を切り裂いた。
+					</p>
+					<p>
+						「くそっ！」
+					</p>
+					<p>
+						俺は反撃に転じた。警棒を横薙ぎに振るう。相手は軽々と後方に跳躍して避け、着地と同時に床を蹴って再び接近してくる。
+					</p>
+					<p>
+						この動き――。
+					</p>
+					<p>
+						俺の脳裏に、記憶が蘇る。
+					</p>
+					<p>
+						スラムの路地裏。十歳のリナに、俺が護身術を教えていた時のこと。「敵が大きい時は、正面から戦っちゃ駄目だ。身を翻して、死角から攻撃するんだ」そう教えた。リナは何度も練習して、やがてその動きを完璧にマスターした。
+					</p>
+					<p>
+						目の前の敵の動きは、まさにそれだった。
+					</p>
+					<p>
+						「まさか、本当に……リナなのか？」
+					</p>
+					<p>
+						俺の声が震えた。
+					</p>
+					<p>
+						その一瞬の動揺を、相手は見逃さなかった。
+					</p>
+					<p>
+						ナイフが俺の頬を切り裂いた。痛みが走る。血が流れる。俺はよろめいて後退した。
+					</p>
+					<p>
+						「アルド！」
+					</p>
+					<p>
+						ソフィアが駆け寄ろうとする。
+					</p>
+					<p>
+						「来るな！」
+					</p>
+					<p>
+						俺は叫んだ。彼女を巻き込むわけにはいかない。
+					</p>
+					<p>
+						でも、敵はもう俺には興味がないようだった。ナイフを持ったまま、ソフィアに向かって突進する。
+					</p>
+					<p>
+						「させるか！」
+					</p>
+					<p>
+						俺は痛みを堪えて、敵の前に立ちはだかった。警棒を両手で構え、全身の力を込めて振り下ろす。
+					</p>
+					<p>
+						相手はそれを、片手で受け止めた。
+					</p>
+					<p>
+						「なっ……!?」
+					</p>
+					<p>
+						信じられなかった。警棒の一撃を、素手で――いや、違う。よく見ると、相手の手には薄い金属製の手袋が装着されている。強化繊維か何かで編まれた、最新鋭の防具だ。
+					</p>
+					<p>
+						こんな装備、スラムの反体制組織が持っているはずがない。誰かが、資金を提供しているのか？
+					</p>
+					<p>
+						「お前たち、一体……」
+					</p>
+					<p>
+						俺の言葉を遮るように、相手は警棒を掴んだまま、俺の体を投げ飛ばした。
+					</p>
+					<p>
+						背中から床に叩きつけられる。肺から空気が押し出され、息ができない。視界が歪む。
+					</p>
+					<p>
+						「アルド！」
+					</p>
+					<p>
+						ソフィアの悲鳴が、遠くで聞こえた。
+					</p>
+					<p>
+						俺は必死で立ち上がろうとした。でも、体が動かない。肩の傷が、思ったよりも深いのかもしれない。血が、どんどん流れていく。
+					</p>
+					<p>
+						ソフィアが――殺される。
+					</p>
+					<p>
+						そう思った時、俺の視界に、他の警備員たちの姿が映った。彼らも、ダストのメンバーと戦っている。でも、数で劣勢だ。そして――ソフィアを狙う敵は、他の誰よりも強い。
+					</p>
+					<p>
+						「畜生……動け、体！」
+					</p>
+					<p>
+						俺は歯を食いしばって、両手を床につけた。そして、ゆっくりと立ち上がる。
+					</p>
+					<p>
+						敵は、俺の方を一瞬だけ見た。
+					</p>
+					<p>
+						そして――何かを躊躇うような仕草を見せた。
+					</p>
+					<p>
+						ほんの一瞬。マスクの奥の視線が、揺れたような気がした。
+					</p>
+					<p>
+						「リナ……お前、なんだな？」
+					</p>
+					<p>
+						俺は、震える声で呟いた。
+					</p>
+					<p>
+						相手は何も答えない。
+					</p>
+					<p>
+						でも、その沈黙こそが、答えだった。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						その時、会場の非常灯が点灯した。
+					</p>
+					<p>
+						薄暗い赤い光が、惨状を照らし出す。破壊された展示品、倒れた警備員、逃げ惑うゲストたち。そして、血まみれの俺と、ナイフを構えた敵。
+					</p>
+					<p>
+						「治安部隊が来るぞ！撤退だ！」
+					</p>
+					<p>
+						ダストのリーダーが叫んだ。
+					</p>
+					<p>
+						他のメンバーたちが、次々と撤退していく。煙幕を張り、非常口から逃走する。でも、ソフィアを狙っていた敵――リナだと俺が確信している人物――だけは、動かなかった。
+					</p>
+					<p>
+						彼女は、ソフィアを見つめている。
+					</p>
+					<p>
+						そして、ナイフを構え直した。
+					</p>
+					<p>
+						「やめろ、リナ！」
+					</p>
+					<p>
+						俺は叫んだ。
+					</p>
+					<p>
+						もう確信していた。この敵は、間違いなくリナだ。動き、体格、そして――何よりも、俺に対する躊躇い。他人なら、俺を殺していたはずだ。でも、リナは俺を殺さなかった。殺せなかった。
+					</p>
+					<p>
+						「頼む、やめてくれ！」
+					</p>
+					<p>
+						俺は必死で叫び続けた。
+					</p>
+					<p>
+						リナは、動きを止めた。
+					</p>
+					<p>
+						そして――ゆっくりと、マスクに手をかけた。
+					</p>
+					<p>
+						いや、違う。マスクを外そうとしているんじゃない。まるで、何かに迷っているように、手が震えている。
+					</p>
+					<p>
+						「レイス！早く来い！」
+					</p>
+					<p>
+						リーダーの声が、遠くから聞こえた。
+					</p>
+					<p>
+						レイス――それが、リナのコードネームなのか。
+					</p>
+					<p>
+						リナは、最後にもう一度だけ、俺を見た。
+					</p>
+					<p>
+						そして――踵を返して、走り去った。
+					</p>
+					<p>
+						ソフィアを殺さずに。
+					</p>
+					<p>
+						「待て！リナ！」
+					</p>
+					<p>
+						俺は追いかけようとした。でも、体が動かない。出血が、思ったよりも酷い。視界が暗くなっていく。
+					</p>
+					<p>
+						「アルド、動かないで！救急隊を呼ぶから！」
+					</p>
+					<p>
+						ソフィアの声が、耳元で聞こえた。
+					</p>
+					<p>
+						でも、俺の意識はもう、遠のいていた。
+					</p>
+					<p>
+						最後に見たのは――煙の中に消えていく、リナの黒い背中だった。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						どれくらい時間が経ったのか、分からない。
+					</p>
+					<p>
+						気がつくと、俺は医務室のベッドに寝かされていた。肩には包帯が巻かれ、点滴が腕に刺さっている。頬の傷も、手当てされているようだ。
+					</p>
+					<p>
+						「目が覚めたか」
+					</p>
+					<p>
+						声がした。
+					</p>
+					<p>
+						振り向くと、上司のブライアンが立っていた。四十代の、厳しい顔をした男だ。でも今は、少しだけ心配そうな表情をしている。
+					</p>
+					<p>
+						「すみません、職務を……」
+					</p>
+					<p>
+						「いい。お前はよくやった。ソフィアを守ったんだからな」
+					</p>
+					<p>
+						ブライアンは、そう言って俺の肩を叩いた。でも、その手は重かった。
+					</p>
+					<p>
+						「で、敵は？」
+					</p>
+					<p>
+						「全員逃走した。ダストのメンバー六名。展示品は半分以上が破壊され、被害総額は……まあ、莫大だ」
+					</p>
+					<p>
+						「そうですか……」
+					</p>
+					<p>
+						俺は、天井を見つめた。
+					</p>
+					<p>
+						リナは、逃げた。
+					</p>
+					<p>
+						ソフィアを殺さずに、逃げた。
+					</p>
+					<p>
+						なぜだ？
+					</p>
+					<p>
+						最後の瞬間、リナは俺を見た。あの目には、何が映っていたんだろう。憎しみ？後悔？それとも――。
+					</p>
+					<p>
+						「アルド、一つ聞きたい」
+					</p>
+					<p>
+						ブライアンが、真剣な声で言った。
+					</p>
+					<p>
+						「お前、あの敵のことを『リナ』と呼んでいたな。監視カメラに録音されていた」
+					</p>
+					<p>
+						俺は、息を呑んだ。
+					</p>
+					<p>
+						「あれは……妹のリナか？」
+					</p>
+					<p>
+						沈黙。
+					</p>
+					<p>
+						俺は、何も答えられなかった。
+					</p>
+					<p>
+						答えれば、リナは犯罪者として指名手配される。上層だけでなく、下層でも追われることになる。そして、俺も――家族がテロリストだったとして、職を失うだろう。
+					</p>
+					<p>
+						でも、嘘をつけば――。
+					</p>
+					<p>
+						「……違います」
+					</p>
+					<p>
+						俺は、絞り出すように言った。
+					</p>
+					<p>
+						「混乱していて、誰かと見間違えたんだと思います」
+					</p>
+					<p>
+						ブライアンは、しばらく俺を見つめていた。
+					</p>
+					<p>
+						そして、小さく溜息をついた。
+					</p>
+					<p>
+						「そうか。なら、いい」
+					</p>
+					<p>
+						彼は、それ以上何も聞かなかった。
+					</p>
+					<p>
+						でも、その目は――俺が嘘をついていることを、見抜いているようだった。
+					</p>
+					<p>
+						「ゆっくり休め。明日、正式な事情聴取がある」
+					</p>
+					<p>
+						ブライアンは、そう言って医務室を出て行った。
+					</p>
+					<p>
+						一人になった俺は、天井を見つめたまま、動けなかった。
+					</p>
+					<p>
+						リナ。
+					</p>
+					<p>
+						お前は、なぜあんなことを。
+					</p>
+					<p>
+						俺が守ろうとしていた「綺麗な世界」を、どうして壊そうとするんだ。
+					</p>
+					<p>
+						そして――どうして、最後にソフィアを殺さなかったんだ。
+					</p>
+					<p>
+						疑問ばかりが、頭の中をぐるぐると回る。
+					</p>
+					<p>
+						答えは、出ない。
+					</p>
+					<p>
+						ただ、一つだけ分かったことがある。
+					</p>
+					<p>
+						俺とリナは――もう、同じ世界にはいない。
+					</p>
+					<p>
+						兄妹でありながら、敵同士になってしまった。
+					</p>
+					<p>
+						その事実が、胸を締め付けた。
+					</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+
+	<div class="row" style="background-color: var(--c-dark); padding: 0 2rem;">
+		<div class="col-lg-10 offset-lg-1">
+			<hr style="border-color: rgba(212, 175, 55, 0.3);">
+			<div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+				<a href="novel-muse-chronicle-ep03.html" class="btn btn-secondary">&larr; 前の話</a>
+				<a href="novel-muse-chronicle.html" class="btn btn-primary">話一覧に戻る</a>
+				<a href="novel-muse-chronicle-ep05.html" class="btn btn-secondary">次の話 &rarr;</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+	<script>
+		// パーティクルエフェクト
+		const canvas = document.getElementById('particle-canvas');
+		const ctx = canvas.getContext('2d');
+		let particles = [];
+		let animationId;
+
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+
+		class Particle {
+			constructor() {
+				this.reset();
+			}
+
+			reset() {
+				this.x = Math.random() * canvas.width;
+				this.y = Math.random() * canvas.height;
+				this.size = Math.random() * 2 + 0.5;
+				const colors = ['rgba(212, 175, 55, ', 'rgba(100, 116, 139, '];
+				this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+				this.opacity = Math.random() * 0.5;
+				this.speedY = Math.random() * -0.5 - 0.1;
+				this.speedX = Math.random() * 0.4 - 0.2;
+			}
+
+			update() {
+				this.y += this.speedY;
+				this.x += this.speedX;
+
+				if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+					this.reset();
+					this.y = canvas.height;
+				}
+			}
+
+			draw() {
+				ctx.fillStyle = this.colorBase + this.opacity + ')';
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+
+		function initParticles() {
+			resizeCanvas();
+			particles = [];
+			const particleCount = Math.min(window.innerWidth / 5, 100);
+			for (let i = 0; i < particleCount; i++) {
+				particles.push(new Particle());
+			}
+		}
+
+		function animateParticles() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			particles.forEach(p => {
+				p.update();
+				p.draw();
+			});
+			animationId = requestAnimationFrame(animateParticles);
+		}
+
+		window.addEventListener('resize', () => {
+			resizeCanvas();
+			initParticles();
+		});
+
+		initParticles();
+		animateParticles();
+
+		// スクロールアニメーション
+		const observerOptions = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.15
+		};
+
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
+			observer.observe(section);
+		});
+	</script>
+
+<nav class="navbar navbar-expand-xl bg-dark navbar-dark bottom justify-content-center">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+		  <a class="nav-link">© 2021 Kamome Ashizawa</a>
+		</li>
+	</ul>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $('.bs-component [data-toggle="popover"]').popover();
+  $('.bs-component [data-toggle="tooltip"]').tooltip();
+</script>
+</body>
+</html>
+
+

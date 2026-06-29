@@ -1,0 +1,467 @@
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C1DKWQW2BF"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-C1DKWQW2BF');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ミューズ・クロニクル：硝子の靴と泥の足 - 葦沢かもめ</title>
+	<meta name="description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』の詳細ページです。">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="Twitter:site" content="@AshizawaKamome">
+	<meta name="twitter:title" content="ミューズ・クロニクル：硝子の靴と泥の足">
+	<meta name="twitter:description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』の詳細ページです。">
+	<meta name="twitter:image" content="https://kamomeashizawa.github.io/bio/img/card02.png">
+
+	<meta http-equiv="Content-Language" content="ja">
+	<meta name="google" content="notranslate">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon_kamome.ico" type="image/vnd.microsoft.icon">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+
+	<style>
+		/* カスタム設定 */
+		:root {
+			--c-gold: #d4af37;
+			--c-gold-dim: #8a7326;
+			--c-dark: #0a0a0c;
+			--c-dark-blue: #0f172a;
+			--c-accent: #7c3aed;
+		}
+
+		body {
+			background-color: var(--c-dark);
+			color: #e2e8f0;
+			font-family: 'Shippori Mincho', serif;
+			overflow-x: hidden;
+		}
+
+		.font-cinzel {
+			font-family: 'Cinzel', serif;
+		}
+
+		/* 背景キャンバス */
+		#particle-canvas {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: radial-gradient(circle at center, #1a1b26 0%, #000000 100%);
+		}
+
+		/* スクロールアニメーション */
+		.reveal-on-scroll {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+			filter: blur(5px);
+		}
+
+		.reveal-on-scroll.is-visible {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
+
+		/* 装飾的な境界線 */
+		.ornamental-border {
+			border: 1px solid transparent;
+			border-image: linear-gradient(to right, transparent, var(--c-gold-dim), transparent) 1;
+		}
+
+		/* 光るテキスト効果 */
+		.glow-text {
+			text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+		}
+
+		/* 古文書風テクスチャ */
+		.texture-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 50;
+			opacity: 0.05;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+		}
+
+		/* 魔法陣風の回転装飾 */
+		.magic-circle {
+			animation: spin 60s linear infinite;
+		}
+		@keyframes spin { 100% { transform: rotate(360deg); } }
+
+		/* タイトルセクション */
+		.title-section {
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+
+		/* エピソードリスト */
+		.episode-card {
+			background: rgba(15, 23, 42, 0.8);
+			border: 1px solid rgba(212, 175, 55, 0.3);
+			border-left: 4px solid var(--c-gold);
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+			transition: all 0.3s ease;
+			cursor: pointer;
+		}
+
+		.episode-card:hover {
+			background: rgba(15, 23, 42, 0.95);
+			border-left: 4px solid var(--c-accent);
+			box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+		}
+
+		.episode-card h3 {
+			color: var(--c-gold);
+			font-family: 'Cinzel', serif;
+			margin-bottom: 0.5rem;
+		}
+
+		.episode-card p {
+			color: #cbd5e1;
+			line-height: 1.6;
+			margin-bottom: 1rem;
+		}
+
+		.episode-card a {
+			color: var(--c-accent);
+			text-decoration: none;
+			transition: color 0.3s ease;
+		}
+
+		.episode-card a:hover {
+			color: var(--c-gold);
+		}
+
+		/* シノプシス */
+		.synopsis-section {
+			background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+			border: 1px solid rgba(212, 175, 55, 0.2);
+			padding: 2rem;
+			margin: 2rem 0;
+		}
+
+		/* ナビゲーション */
+		.nav-back {
+			display: inline-block;
+			color: var(--c-gold);
+			text-decoration: none;
+			margin-bottom: 2rem;
+			transition: color 0.3s ease;
+		}
+
+		.nav-back:hover {
+			color: var(--c-accent);
+		}
+	</style>
+</head>
+<body>
+
+	<!-- 背景キャンバス -->
+	<canvas id="particle-canvas"></canvas>
+	<!-- ノイズテクスチャ -->
+	<div class="texture-overlay"></div>
+
+	<header>
+        <div id="navbarloc">
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="../../index.html">Kamome Ashizawa</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </nav>
+    </header>
+
+	<div class="page-header" style="background-color: var(--c-dark); padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<!-- タイトルセクション -->
+				<div class="title-section reveal-on-scroll" style="text-align: center;">
+					<div style="margin-bottom: 1.5rem;">
+						<svg style="width: 4rem; height: 4rem; color: #d4af37; margin: 0 auto; animation: spin 60s linear infinite;" class="magic-circle" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+							<circle cx="50" cy="50" r="45" />
+							<rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)" />
+						</svg>
+					</div>
+					<p style="color: #8a7326; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1rem; font-family: 'Cinzel', serif;">A TALE OF CHOICES</p>
+					<h1 style="font-size: 3.5rem; font-weight: bold; background: linear-gradient(to bottom, #fcd34d, #fbbf24, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 2rem;">
+						ミューズ・クロニクル：硝子の靴と泥の足
+					</h1>
+					<p style="font-size: 1.25rem; color: #cbd5e1; margin-bottom: 2rem; font-family: 'Shippori Mincho', serif;">
+						家族の愛と革命の理想が、哀切に衝突する一夜の物語
+					</p>
+					<div style="height: 6rem; width: 1px; background: linear-gradient(to bottom, #d4af37, transparent); margin: 2.5rem auto 0;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- シノプシスセクション -->
+	<div class="page-header" style="background-color: var(--c-dark); padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="reveal-on-scroll">
+					<div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+						<div style="height: 1px; flex: 1; background: linear-gradient(to right, transparent, #8a7326, transparent);"></div>
+						<h2 style="font-size: 1.25rem; color: #d4af37; font-family: 'Cinzel', serif; letter-spacing: 0.1em; margin: 0;">SYNOPSIS</h2>
+						<div style="height: 1px; flex: 1; background: linear-gradient(to right, transparent, #8a7326, transparent);"></div>
+					</div>
+					<div class="synopsis-section">
+						<p style="font-size: 1.125rem; line-height: 1.8; color: #cbd5e1; text-align: justify;">
+							博物館惑星ミューズの上層。護衛官のアルドは、17歳になる妹リナのために、給料1ヶ月分の「白い靴」を買う。
+それはスラム出身の彼らにとって、貧困からの脱出と「上層の市民」になった証だった。
+
+しかし、その翌晩。反体制組織「ダスト」の襲撃が開始される。
+その現場に現れたエース工作員「レイス」の正体は、アルドが命がけで守ろうとした妹リナだった。
+
+「綺麗な嘘」を守る兄と、「汚れた真実」を暴く妹。
+家族の愛と革命の理想が、哀切に衝突する一夜の物語。
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- エピソード一覧 -->
+	<div class="page-header" style="background-color: var(--c-dark); padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="reveal-on-scroll">
+					<div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+						<div style="height: 1px; flex: 1; background: linear-gradient(to right, transparent, #8a7326, transparent);"></div>
+						<h2 style="font-size: 1.25rem; color: #d4af37; font-family: 'Cinzel', serif; letter-spacing: 0.1em; margin: 0;">EPISODES</h2>
+						<div style="height: 1px; flex: 1; background: linear-gradient(to right, transparent, #8a7326, transparent);"></div>
+					</div>
+					<div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第01話　硝子の靴の値段</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep01.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第02話　食卓の嘘</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep02.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第03話　革命前夜のワルツ</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep03.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第04話　亡霊（レイス）の侵入</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep04.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第05話　知っている痛み</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep05.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第06話　仮面の下の涙</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep06.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第07話　白い靴への憎悪</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep07.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第08話　銃を捨てる時</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep08.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第09話　泥濘（ぬかるみ）の抱擁</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep09.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+
+				<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid #d4af37; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; cursor: pointer;">
+					<h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">第10話　裸足の旅立ち</h3>
+					<p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;"></p>
+					<p style="color: #94a3b8; font-size: 0.875rem;">
+						<a href="novel-muse-chronicle-ep10.html" style="color: #d4af37; text-decoration: none;">この話を読む →</a>
+					</p>
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+
+	</div>
+
+	<div class="row" style="background-color: var(--c-dark); padding: 2rem;">
+		<div class="col-lg-10 offset-lg-1">
+			<p class="text-center" style="color: #cbd5e1; margin: 2rem 0;">
+				<a href="../../novels.html" class="btn btn-primary">← 作品一覧に戻る</a>
+			</p>
+		</div>
+	</div>
+
+	<script>
+		// パーティクルエフェクト
+		const canvas = document.getElementById('particle-canvas');
+		const ctx = canvas.getContext('2d');
+		let particles = [];
+		let animationId;
+
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+
+		class Particle {
+			constructor() {
+				this.reset();
+			}
+
+			reset() {
+				this.x = Math.random() * canvas.width;
+				this.y = Math.random() * canvas.height;
+				this.size = Math.random() * 2 + 0.5;
+				const colors = ['rgba(212, 175, 55, ', 'rgba(100, 116, 139, '];
+				this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+				this.opacity = Math.random() * 0.5;
+				this.speedY = Math.random() * -0.5 - 0.1;
+				this.speedX = Math.random() * 0.4 - 0.2;
+			}
+
+			update() {
+				this.y += this.speedY;
+				this.x += this.speedX;
+
+				if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+					this.reset();
+					this.y = canvas.height;
+				}
+			}
+
+			draw() {
+				ctx.fillStyle = this.colorBase + this.opacity + ')';
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+
+		function initParticles() {
+			resizeCanvas();
+			particles = [];
+			const particleCount = Math.min(window.innerWidth / 5, 100);
+			for (let i = 0; i < particleCount; i++) {
+				particles.push(new Particle());
+			}
+		}
+
+		function animateParticles() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			particles.forEach(p => {
+				p.update();
+				p.draw();
+			});
+			animationId = requestAnimationFrame(animateParticles);
+		}
+
+		window.addEventListener('resize', () => {
+			resizeCanvas();
+			initParticles();
+		});
+
+		initParticles();
+		animateParticles();
+
+		// スクロールアニメーション
+		const observerOptions = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.15
+		};
+
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
+			observer.observe(section);
+		});
+	</script>
+
+<nav class="navbar navbar-expand-xl bg-dark navbar-dark bottom justify-content-center">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+		  <a class="nav-link">© 2021 Kamome Ashizawa</a>
+		</li>
+	</ul>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $('.bs-component [data-toggle="popover"]').popover();
+  $('.bs-component [data-toggle="tooltip"]').tooltip();
+</script>
+</body>
+</html>
+

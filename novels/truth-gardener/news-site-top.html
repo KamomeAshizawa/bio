@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C1DKWQW2BF"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'G-C1DKWQW2BF');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>BlissFeed - あなたの今日を彩る、至福のニュース</title>
+	<meta name="description" content="BlissFeed。『真実汚染区域』の世界で市民に配信される最新ニュース。">
+
+	<meta http-equiv="Content-Language" content="ja">
+	<meta name="google" content="notranslate">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="shortcut icon" href="../../img/favicon_kamome.ico" type="image/vnd.microsoft.icon">
+	<link rel="stylesheet" type="text/css" href="../../css/css.css">
+	<style>
+		/* ページ背景グラデーション */
+		body {
+			background: linear-gradient(135deg, #E8EAFF 0%, #FFFFFF 50%, #FFF5E1 100%);
+			min-height: 100vh;
+		}
+
+		/* トップニュース */
+		.top-news-card {
+			border-left: 5px solid #667eea;
+			box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			margin-bottom: 2rem;
+		}
+
+		.top-news-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
+		}
+
+		.top-news-header {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			padding: 2rem;
+		}
+
+		.top-news-header h2 {
+			font-size: 1.8rem;
+			font-weight: 700;
+			margin: 1rem 0;
+			line-height: 1.4;
+		}
+
+		.top-news-meta {
+			font-size: 0.85rem;
+			color: rgba(255, 255, 255, 0.9);
+			margin-top: 1rem;
+		}
+
+		/* ニュースカード */
+		.news-card {
+			border-left: 5px solid #667eea;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			height: 100%;
+		}
+
+		.news-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 15px rgba(102, 126, 234, 0.2);
+		}
+
+		.news-card-icon {
+			height: 120px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 3rem;
+		}
+
+		.news-category {
+			font-weight: 700;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			font-size: 0.7rem;
+			display: inline-block;
+			margin-bottom: 0.5rem;
+		}
+
+		.news-card h5 {
+			font-weight: 700;
+			color: #333;
+			margin: 0.5rem 0;
+			font-size: 1rem;
+			line-height: 1.4;
+		}
+
+		.news-card p {
+			font-size: 0.9rem;
+			color: #666;
+			line-height: 1.5;
+		}
+
+		.news-card a {
+			color: #667eea;
+			text-decoration: none;
+			font-weight: 600;
+			font-size: 0.9rem;
+		}
+
+		.news-card a:hover {
+			color: #764ba2;
+			text-decoration: underline;
+		}
+
+		/* サイドバー */
+		.sidebar-card {
+			border-radius: 0.5rem;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+			margin-bottom: 2rem;
+			padding: 1.5rem;
+		}
+
+		.sidebar-card h4 {
+			font-weight: 700;
+			color: #333;
+			margin-bottom: 1.5rem;
+			padding-bottom: 1rem;
+			border-bottom: 2px solid #667eea;
+		}
+
+		.ai-message-card {
+			background: white;
+			text-align: center;
+		}
+
+		.ai-message-card .ai-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.ai-message-card p {
+			color: #555;
+			line-height: 1.6;
+			font-size: 0.95rem;
+		}
+
+		.ai-source {
+			color: #999;
+			font-size: 0.8rem;
+			margin-top: 1rem;
+		}
+
+		/* トップニュースリスト */
+		.top-news-list {
+			list-style: none;
+			padding: 0;
+		}
+
+		.top-news-list li {
+			margin-bottom: 1rem;
+			padding: 0;
+			display: flex;
+			gap: 0.75rem;
+		}
+
+		.top-news-list .number {
+			font-weight: 700;
+			color: #667eea;
+			flex-shrink: 0;
+			width: 1.5rem;
+		}
+
+		.top-news-list a {
+			color: #333;
+			text-decoration: none;
+			font-size: 0.9rem;
+			line-height: 1.4;
+		}
+
+		.top-news-list a:hover {
+			color: #667eea;
+			text-decoration: underline;
+		}
+
+		/* 記事情報 */
+		.article-info-card {
+			background: linear-gradient(135deg, #F0F0FF 0%, #FFF0FF 100%);
+			border: 2px solid #E8EAFF;
+		}
+
+		.article-info-card p {
+			font-size: 0.9rem;
+			color: #555;
+			margin: 0.5rem 0;
+		}
+
+		.article-info-card strong {
+			color: #333;
+		}
+
+		.return-btn {
+			display: block;
+			width: 100%;
+			padding: 0.75rem;
+			background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			text-decoration: none;
+			text-align: center;
+			border-radius: 0.25rem;
+			font-weight: 600;
+			transition: opacity 0.3s ease;
+			margin-top: 1rem;
+		}
+
+		.return-btn:hover {
+			opacity: 0.9;
+			color: white;
+			text-decoration: none;
+		}
+
+		/* メディアクエリ */
+		@media (max-width: 768px) {
+			.top-news-header h2 {
+				font-size: 1.3rem;
+			}
+
+			.sidebar-card {
+				margin-bottom: 1.5rem;
+				padding: 1rem;
+			}
+
+			.news-card-icon {
+				height: 80px;
+				font-size: 2rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="../../index.html">Kamome Ashizawa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		</nav>
+	</header>
+
+	<div class="container-fluid" style="padding-top: 70px;">
+		<div class="container" style="max-width: 1000px;">
+			<div class="row py-5">
+				<div class="col-lg-8">
+					<h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">BlissFeed</h1>
+					<p style="color: #666; font-size: 1rem;">あなたの今日を彩る、至福のニュース</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- メインコンテンツ -->
+	<div class="container" style="max-width: 1000px; padding: 2rem 1rem;">
+		<div class="row">
+			<!-- メインニュースエリア -->
+			<div class="col-lg-8">
+
+				<!-- トップニュース -->
+				<div class="card top-news-card">
+					<div class="top-news-header">
+						<span class="news-category" style="color: #E0D4FF;">トップストーリー</span>
+						<h2>AI心地よさ指数、過去最高記録を更新</h2>
+						<p style="margin: 1rem 0; color: rgba(255, 255, 255, 0.95); line-height: 1.6;">
+							市民精神衛生指数が過去最高を記録。ARフィルターの美化技術が完璧化し、市民の幸福度が上昇しています。内閣府では「社会全体の幸福度が向上している証拠」として位置づけています。
+						</p>
+						<div class="top-news-meta">
+							配信元：BlissFeed | 2143年11月15日
+						</div>
+					</div>
+					<div class="card-body text-center">
+						<a href="material-news-article-01.html" class="btn btn-primary">詳細を読む</a>
+					</div>
+				</div>
+
+				<!-- ニュース一覧 -->
+				<div class="row">
+
+					<!-- 記事 2: 資源 -->
+					<div class="col-md-6 mb-4">
+						<div class="card news-card">
+							<div class="news-card-icon bg-light" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%) !important;">
+								📊
+							</div>
+							<div class="card-body">
+								<span class="news-category" style="color: #1976D2;">経済</span>
+								<h5>資源枯渇問題は完全に解決した</h5>
+								<p>内閣府が「資源問題は永遠に解決した」と宣言。AIの「最適資源配分」により、無限に豊かな状態が確保されました。</p>
+								<a href="material-news-article-02.html">記事を読む →</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- 記事 3: 安全 -->
+					<div class="col-md-6 mb-4">
+						<div class="card news-card">
+							<div class="news-card-icon bg-light" style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%) !important;">
+								🛡️
+							</div>
+							<div class="card-body">
+								<span class="news-category" style="color: #388E3C;">社会</span>
+								<h5>真実汚染検知・処理システムが市民生活を守っている</h5>
+								<p>情報庭師局が「真実汚染（トゥルース・ハザード）」の月次処理報告を発表。市民は安心して生活できます。</p>
+								<a href="material-news-article-03.html">記事を読む →</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- 記事 4: 医療 -->
+					<div class="col-md-6 mb-4">
+						<div class="card news-card">
+							<div class="news-card-icon bg-light" style="background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD0 100%) !important;">
+								❤️
+							</div>
+							<div class="card-body">
+								<span class="news-category" style="color: #C2185B;">健康</span>
+								<h5>医療効率化プロジェクトで平均寿命が過去最高に更新</h5>
+								<p>厚生労働省が発表した統計では、平均寿命が117.3歳に。医療資源が最適配分されています。</p>
+								<a href="material-news-article-04.html">記事を読む →</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- 記事 5: セキュリティ -->
+					<div class="col-md-6 mb-4">
+						<div class="card news-card">
+							<div class="news-card-icon bg-light" style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%) !important;">
+								⚠️
+							</div>
+							<div class="card-body">
+								<span class="news-category" style="color: #E65100;">警告</span>
+								<h5>テロリスト組織「裸の王様」の活動が過去最高に</h5>
+								<p>内務省が警告：「真実の押し付け」というテロ活動が拡大。市民は警戒し、当局に通報してください。</p>
+								<a href="material-news-article-05.html">記事を読む →</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- サイドバー -->
+			<div class="col-lg-4">
+
+				<!-- AIからのメッセージ -->
+				<div class="card sidebar-card ai-message-card">
+					<h4>今日のAIメッセージ</h4>
+					<div class="ai-icon">🤖</div>
+					<p>
+						「本日もあなたにとって最適な情報をお届けしています。世界は完璧です。社会は安定しています。あなたの幸福が何よりも大切です。安心してお過ごしください。」
+					</p>
+					<div class="ai-source">
+						— 政府認可 AI 情報配信システム
+					</div>
+				</div>
+
+				<!-- 今週のトップニュース -->
+				<div class="card sidebar-card">
+					<h4>今週のトップニュース</h4>
+					<ol class="top-news-list">
+						<li>
+							<span class="number">1.</span>
+							<a href="material-news-article-01.html">AI心地よさ指数、過去最高記録を更新</a>
+						</li>
+						<li>
+							<span class="number">2.</span>
+							<a href="material-news-article-02.html">資源枯渇問題は完全に解決した</a>
+						</li>
+						<li>
+							<span class="number">3.</span>
+							<a href="material-news-article-03.html">真実汚染検知・処理システムが市民生活を守っている</a>
+						</li>
+						<li>
+							<span class="number">4.</span>
+							<a href="material-news-article-04.html">医療効率化プロジェクトで平均寿命が過去最高に更新</a>
+						</li>
+						<li>
+							<span class="number">5.</span>
+							<a href="material-news-article-05.html">テロリスト組織「裸の王様」の活動が過去最高に</a>
+						</li>
+					</ol>
+				</div>
+
+				<!-- 作品情報 -->
+				<div class="card sidebar-card article-info-card">
+					<h4 style="border-bottom: 2px solid #667eea;">このサイトについて</h4>
+					<p style="margin: 1rem 0;">
+						「BlissFeed」は『真実汚染区域』の世界設定で、市民に配信される公式ニュースサイトです。
+					</p>
+					<div style="background: white; padding: 0.75rem; border-radius: 0.25rem; margin-bottom: 1rem;">
+						<p><strong>作品名:</strong><br>真実汚染区域</p>
+						<p><strong>著者:</strong><br>葦沢かもめ</p>
+						<p><strong>ジャンル:</strong><br>ディストピアSF</p>
+					</div>
+					<a href="N000037-truth-gardener.html" class="return-btn">作品ページへ戻る</a>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<nav class="navbar navbar-expand-xl bg-dark navbar-dark bottom justify-content-center">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+			  <a class="nav-link">© 2021 Kamome Ashizawa</a>
+			</li>
+		</ul>
+	</nav>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="../../js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	  $('.bs-component [data-toggle="popover"]').popover();
+	  $('.bs-component [data-toggle="tooltip"]').tooltip();
+	</script>
+</body>
+</html>

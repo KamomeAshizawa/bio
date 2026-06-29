@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C1DKWQW2BF"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'G-C1DKWQW2BF');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>メッセージログ01：Harmony通信 - 真実汚染区域 - 葦沢かもめ</title>
+	<meta name="description" content="真実汚染区域の世界で、トゴとリラが交わすメッセージアプリ『Harmony』のログ。彼らが見ているのは真実か、それとも美しい嘘か。">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="Twitter:site" content="@AshizawaKamome">
+	<meta name="twitter:title" content="メッセージログ01：Harmony通信 - 真実汚染区域">
+	<meta name="twitter:description" content="トゴとリラのメッセージ会話から見える、支配される社会と愛。">
+	<meta name="twitter:image" content="https://kamomeashizawa.github.io/bio/img/card02.png">
+
+	<meta http-equiv="Content-Language" content="ja">
+	<meta name="google" content="notranslate">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="shortcut icon" href="../../img/favicon_kamome.ico" type="image/vnd.microsoft.icon">
+	<link rel="stylesheet" type="text/css" href="../../css/css.css">
+	<style>
+		/* ========== 会話劇用CSS ========== */
+
+		/* 会話コンテナ全体 */
+		.talk-container {
+			width: 100%;
+			margin: 0 auto;
+			line-height: 1.8;
+			font-size: 16px;
+			color: #333;
+		}
+
+		/* 各発言の行 */
+		.talk-row {
+			display: flex;
+			align-items: flex-start;
+			margin-bottom: 20px;
+			width: 100%;
+		}
+
+		/* 左側（相手キャラクター） */
+		.talk-row.left {
+			flex-direction: row;
+		}
+
+		/* 右側（自分/主人公キャラクター） */
+		.talk-row.right {
+			flex-direction: row-reverse;
+		}
+
+		/* アイコン画像エリア */
+		.talk-icon {
+			width: 60px;
+			min-width: 60px;
+			height: 60px;
+			margin: 0;
+			position: relative;
+		}
+
+		.talk-icon img {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 1px solid #ddd;
+		}
+
+		/* 名前ラベル（アイコンの下） */
+		.talk-name {
+			font-size: 10px;
+			text-align: center;
+			color: #777;
+			margin-top: 2px;
+			display: block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		/* 吹き出し部分 */
+		.talk-bubble {
+			position: relative;
+			background: #f1f2f6;
+			border-radius: 15px;
+			padding: 12px 18px;
+			max-width: 75%;
+			color: #333;
+			font-size: 16px;
+			line-height: 1.6;
+			box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+			word-wrap: break-word;
+		}
+
+		/* 左側の吹き出し位置調整 */
+		.talk-row.left .talk-bubble {
+			margin-left: 15px;
+			border-top-left-radius: 0;
+		}
+
+		/* 右側の吹き出し位置調整と色 */
+		.talk-row.right .talk-bubble {
+			margin-right: 15px;
+			background: #dcf8c6;
+			border-top-right-radius: 0;
+		}
+
+		/* 地の文（ナレーション） */
+		.dialogue-narration {
+			text-align: center;
+			color: #777;
+			margin: 2em 0;
+			font-size: 14px;
+			font-style: italic;
+		}
+
+		/* シーン区切り */
+		.scene-break {
+			border: none;
+			margin: 2em 0;
+			text-align: center;
+			position: relative;
+		}
+
+		.scene-break:after {
+			content: "---";
+			display: inline-block;
+			position: relative;
+			top: -0.8em;
+			padding: 0 0.5em;
+			background: white;
+			color: #999;
+		}
+
+		/* 区切りの段落 */
+		.talk-container p.break {
+			text-align: center;
+			margin: 2em 0;
+			color: #999;
+		}
+
+		/* モバイル対応 */
+		@media (max-width: 576px) {
+			.talk-icon {
+				width: 45px;
+				min-width: 45px;
+				height: 45px;
+			}
+
+			.talk-bubble {
+				font-size: 14px;
+				padding: 10px 14px;
+				max-width: 85%;
+			}
+
+			.talk-row.left .talk-bubble {
+				margin-left: 10px;
+			}
+
+			.talk-row.right .talk-bubble {
+				margin-right: 10px;
+			}
+
+			.talk-container {
+				font-size: 14px;
+			}
+		}
+
+		/* エピソードコンテンツスタイル（互換性） */
+		.episode-content {
+			line-height: 1.8;
+			font-size: 16px;
+			color: #333;
+		}
+
+		.episode-content p {
+			margin-bottom: 1.2em;
+		}
+
+		/* キャラクター説明セクション */
+		.character-profile {
+			background: #f9f9f9;
+			padding: 1.5em;
+			border-left: 4px solid #667eea;
+			margin-bottom: 2em;
+			border-radius: 4px;
+		}
+
+		.character-profile h5 {
+			color: #667eea;
+			margin-bottom: 1em;
+		}
+
+		.character-profile ul {
+			margin-bottom: 0.5em;
+		}
+
+		.character-profile li {
+			margin-bottom: 0.3em;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div id="navbarloc"></div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="../../index.html">Kamome Ashizawa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</nav>
+	</header>
+
+	<div class="container">
+
+		<div class="page-header" id="nav">
+
+			<br>
+			<br>
+			<br>
+	    	<div class="row">
+			    <div class="col-xs-12">
+					<div class="bs-component" style="margin-bottom: 15px;">
+					  <div class="btn-group">
+						<label class="btn">
+							<a href="../../index.html">
+								Home
+							</a>
+						</label>
+						<label class="btn">
+							<a href="../../profile.html">
+								About
+							</a>
+						</label>
+						<label class="btn">
+							<a href="../../works.html">
+								Works
+							</a>
+						</label>
+						<label class="btn">
+							<a href="../../novels.html">
+								Novels
+							</a>
+						</label>
+						<label class="btn">
+							<a href="../../archives.html">
+								Archives
+							</a>
+						</label>
+						<label class="btn">
+							<a href="../../media.html">
+								Media
+							</a>
+						</label>
+						<label class="btn">
+							<a href="../../contact.html">
+								Contact
+							</a>
+						</label>
+					  </div>
+					</div>
+	                </div>
+	    	</div>
+		</div>
+
+		<div class="page-header" id="episode-header">
+			<br>
+			<div class="row">
+				<div class="col-lg-12">
+					<a href="N000037-truth-gardener.html" class="btn btn-secondary mb-3">&larr; 真実汚染区域に戻る</a>
+					<h2>メッセージログ01：Harmony通信</h2>
+					<p class="text-muted">真実汚染区域 設定資料</p>
+					<hr>
+					<p><small class="text-muted">公開日：2025年11月18日 | 文字数：3,847 | 執筆者：葦沢かもめ</small></p>
+				</div>
+			</div>
+			<br>
+		</div>
+
+		<div class="page-header" id="episode-content">
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1">
+
+					<!-- キャラクター設定 -->
+					<div class="character-profile">
+						<h5>📋 登場キャラクター</h5>
+
+						<div style="margin-bottom: 1.5em;">
+							<h6><strong>1. トゴ（Togo）</strong></h6>
+							<ul style="margin-bottom: 0;">
+								<li><strong>職業：</strong> 視覚フィルター保守局・現場班（派遣社員）</li>
+								<li><strong>役割：</strong> 街中のARタグが剥がれたり破損した場所へ行き、ARマーカーを貼り直す「修繕屋」</li>
+								<li><strong>性格：</strong> 臆病で神経質。フィルターの隙間から「うっかり真実」を見てしまうことが多く、常に精神安定剤代わりの「安らぎキャンディ」を舐めている</li>
+							</ul>
+						</div>
+
+						<div>
+							<h6><strong>2. リラ（Lila）</strong></h6>
+							<ul style="margin-bottom: 0;">
+								<li><strong>職業：</strong> ライフ・ナラティブ・ライター（在宅ワーク）</li>
+								<li><strong>役割：</strong> 不運な出来事に遭遇した市民に対し、即座に「意味付け」（嘘のストーリー）を配信し、精神的ショックを和らげる</li>
+								<li><strong>性格：</strong> ポジティブ中毒。自分の仕事に誇りを持っており、「悲しみ」という概念自体をウイルスのように忌み嫌っている。トゴの恋人</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- メッセージアプリの説明 -->
+					<div style="background: #f0f0ff; padding: 1.5em; border-radius: 4px; margin-bottom: 2em;">
+						<h6 style="color: #667eea;"><strong>💬 メッセージアプリ『Harmony（ハルモニア）』</strong></h6>
+						<p style="margin-bottom: 0; font-size: 14px;">時間：22:14 | 状況：トゴが現場作業を終え、帰宅中の電車内での会話</p>
+					</div>
+
+					<!-- 会話コンテンツ -->
+					<div class="episode-content talk-container">
+
+						<!-- メッセージ1 -->
+						<div class="talk-row right">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/3d4070/ffffff?text=Togo" alt="トゴ">
+								<span class="talk-name">トゴ</span>
+							</div>
+							<div class="talk-bubble">
+								[スタンプ：疲れ切って溶けている猫]<br>
+								やっと終わった……。今日の現場、最悪だったよ。「真実汚染（トゥルース・ハザード）」のレベル2認定エリアだった。
+							</div>
+						</div>
+
+						<!-- メッセージ2 -->
+						<div class="talk-row left">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/764ba2/ffffff?text=Lila" alt="リラ">
+								<span class="talk-name">リラ</span>
+							</div>
+							<div class="talk-bubble">
+								お疲れ様ー！✨<br>
+								レベル2ってことは、結構な「ノイズ」が出てたの？😰<br>
+								私の特別製「癒やしの波動ボイス」送ろうか？
+							</div>
+						</div>
+
+						<!-- メッセージ3 -->
+						<div class="talk-row right">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/3d4070/ffffff?text=Togo" alt="トゴ">
+								<span class="talk-name">トゴ</span>
+							</div>
+							<div class="talk-bubble">
+								頼む、家に帰ったら最大音量で流してくれ。<br>
+								第13地区の古い公園なんだけどさ。子供が遊具から落ちて骨折したんだよ。<br>
+								でも、そこのエリア、ARサーバーの同期ズレが起きてて……。<br>
+								一瞬だけ、<strong>「骨が皮膚を突き破っている映像（事実）」</strong>がそのまま肉眼で見えちゃったらしいんだ。周囲の大人たちもパニックだよ。
+							</div>
+						</div>
+
+						<!-- メッセージ4 -->
+						<div class="talk-row left">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/764ba2/ffffff?text=Lila" alt="リラ">
+								<span class="talk-name">リラ</span>
+							</div>
+							<div class="talk-bubble">
+								ひっ……！！😱😱😱<br>
+								やめてよ、そんなグロテスクな「創作怪談」！<br>
+								想像しただけでSan値（サニティ・スコア）が下がる……。<br>
+								ちゃんとAIコンシェルジュは機能したの？
+							</div>
+						</div>
+
+						<!-- メッセージ5 -->
+						<div class="talk-row right">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/3d4070/ffffff?text=Togo" alt="トゴ">
+								<span class="talk-name">トゴ</span>
+							</div>
+							<div class="talk-bubble">
+								うん、すぐに「庭師（ガードナー）」みたいな黒いスーツの奴らが来て封鎖した。<br>
+								その後、俺たちが新しいARレイヤーを被せたよ。<br>
+								子供の腕は「天使の羽が生える前兆としての変形」ってことに処理された。<br>
+								親たちも「うちの子が選ばれし者になった！」って泣いて喜んでたから、まあ、結果オーライだけど……。<br>
+								俺、作業中にチラッと見ちゃったんだよ。「赤い液体」を。
+							</div>
+						</div>
+
+						<!-- メッセージ6 -->
+						<div class="talk-row left">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/764ba2/ffffff?text=Lila" alt="リラ">
+								<span class="talk-name">リラ</span>
+							</div>
+							<div class="talk-bubble">
+								[スタンプ：耳を塞いで歌うウサギ]<br>
+								聞きたくない聞きたくない！<br>
+								それは「聖なるワイン」よ！ そう認識しなさい！😡<br>
+								トゴくん、最近ストレスで「認知フィルター」弱ってるんじゃない？<br>
+								明日、眼球のファームウェア更新に行きなよ。
+							</div>
+						</div>
+
+						<!-- メッセージ7 -->
+						<div class="talk-row right">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/3d4070/ffffff?text=Togo" alt="トゴ">
+								<span class="talk-name">トゴ</span>
+							</div>
+							<div class="talk-bubble">
+								そうだな……。世界がこんなに汚れてるわけないもんな。<br>
+								俺の目が悪いだけだ。ごめん。<br>
+								そういえば、リラの方はどうだった？
+							</div>
+						</div>
+
+						<!-- メッセージ8 -->
+						<div class="talk-row left">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/764ba2/ffffff?text=Lila" alt="リラ">
+								<span class="talk-name">リラ</span>
+							</div>
+							<div class="talk-bubble">
+								こっちは平和（？）なもんよ。<br>
+								今日は「レジスタンス（裸の王様）」がばら撒いたビラを拾っちゃったお婆ちゃんの担当をしたわ。<br>
+								ビラに「我々の食料は合成廃棄物だ」とかいう<strong>悪質なデマ（事実）</strong>が書いてあったの。<br>
+								お婆ちゃん、ショックで過呼吸になってた。
+							</div>
+						</div>
+
+						<!-- メッセージ9 -->
+						<div class="talk-row right">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/3d4070/ffffff?text=Togo" alt="トゴ">
+								<span class="talk-name">トゴ</span>
+							</div>
+							<div class="talk-bubble">
+								うわあ、テロリストめ……。<br>
+								年寄りにそんな猛毒（ファクト）を盛るなんて、人の心がないのか？
+							</div>
+						</div>
+
+						<!-- メッセージ10 -->
+						<div class="talk-row left">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/764ba2/ffffff?text=Lila" alt="リラ">
+								<span class="talk-name">リラ</span>
+							</div>
+							<div class="talk-bubble">
+								ほんとそれ！ 最低最悪の暴力よ！😤<br>
+								だから私が即興でシナリオ書いたの。<br>
+								「それは『逆説的詩的表現』を用いた前衛小説の一部で、拾ったあなたは文芸コンクールの審査員に選ばれました」って通知を送ってあげた。<br>
+								そしたらお婆ちゃん、すっかり元気になって、そのビラを額縁に入れて飾るって！✨
+							</div>
+						</div>
+
+						<!-- メッセージ11 -->
+						<div class="talk-row right">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/3d4070/ffffff?text=Togo" alt="トゴ">
+								<span class="talk-name">トゴ</span>
+							</div>
+							<div class="talk-bubble">
+								さすがリラ！ 最高の仕事だね。<br>
+								そのお婆ちゃんが幸せなら、それが真実だよな。<br>
+								[スタンプ：キラキラ輝くハートの世界]
+							</div>
+						</div>
+
+						<!-- メッセージ12 -->
+						<div class="talk-row left">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/764ba2/ffffff?text=Lila" alt="リラ">
+								<span class="talk-name">リラ</span>
+							</div>
+							<div class="talk-bubble">
+								でしょ？ 私達は世界を守ってるの。<br>
+								あ、そういえばトゴくん。<br>
+								帰りに「合成肉（ステーキ）」買ってきて。<br>
+								今日の特売のやつ、電気信号の味付けが「A5ランク和牛」にアプデされたらしいから！🍖🤤
+							</div>
+						</div>
+
+						<!-- メッセージ13 -->
+						<div class="talk-row right">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/3d4070/ffffff?text=Togo" alt="トゴ">
+								<span class="talk-name">トゴ</span>
+							</div>
+							<div class="talk-bubble">
+								了解。<br>
+								……一瞬、パッケージの裏の「原材料：昆虫プロテイン」って文字が見えた気がしたけど、きっと俺の目のバグだな。<br>
+								A5ランク、楽しみにしてる。今から帰るよ。
+							</div>
+						</div>
+
+						<!-- メッセージ14 -->
+						<div class="talk-row left">
+							<div class="talk-icon">
+								<img src="https://via.placeholder.com/150/764ba2/ffffff?text=Lila" alt="リラ">
+								<span class="talk-name">リラ</span>
+							</div>
+							<div class="talk-bubble">
+								気をつけてね！<br>
+								愛してる（Love_Algorithm_v4.2適用済み）💕
+							</div>
+						</div>
+
+					</div>
+					<!-- 会話コンテンツ終了 -->
+
+					<!-- 設定解説 -->
+					<div style="background: #fff9e6; padding: 1.5em; border-left: 4px solid #d4af37; margin-top: 2em; border-radius: 4px;">
+						<h6 style="color: #d4af37; margin-bottom: 1em;">📖 この資料について</h6>
+						<p style="margin-bottom: 0.5em;">
+							このメッセージログは、小説『真実汚染区域』の世界観を深く理解するための設定資料です。
+						</p>
+						<p style="margin-bottom: 0;">
+							トゴとリラの日常会話から、以下の背景が読み取れます：
+						</p>
+						<ul style="margin-top: 0.5em; margin-bottom: 0;">
+							<li><strong>「真実汚染」システム：</strong> ARフィルターで現実を改竄し、市民には「心地よい嘘」のみを見せる社会</li>
+							<li><strong>「庭師（ガードナー）」：</strong> 事実を隠蔽・改竄する組織</li>
+							<li><strong>職業の多様性：</strong> 嘘の社会を支える様々な役職が存在</li>
+							<li><strong>愛と嘘：</strong> トゴとリラは互いに真実を見たくない、見させたくないという相互依存関係にある</li>
+							<li><strong>小さな疑問：</strong> 彼らは時折「本当？」という疑問を抱くが、即座に否定する。この葛藤が物語の深さを生み出している</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<br>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<hr>
+				<p class="text-center text-muted mt-4 mb-4">
+					<a href="N000037-truth-gardener.html" class="btn btn-secondary">&larr; 真実汚染区域に戻る</a>
+				</p>
+			</div>
+		</div>
+
+	</div>
+
+	<nav class="navbar navbar-expand-xl bg-dark navbar-dark bottom justify-content-center">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link">© 2021 Kamome Ashizawa</a>
+			</li>
+		</ul>
+	</nav>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="../../js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$('.bs-component [data-toggle="popover"]').popover();
+		$('.bs-component [data-toggle="tooltip"]').tooltip();
+	</script>
+</body>
+</html>

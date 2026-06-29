@@ -1,0 +1,909 @@
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C1DKWQW2BF"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-C1DKWQW2BF');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>仮面の下の涙 - ミューズ・クロニクル：硝子の靴と泥の足 - 葦沢かもめ</title>
+	<meta name="description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』仮面の下の涙を公開しています。">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="Twitter:site" content="@AshizawaKamome">
+	<meta name="twitter:title" content="仮面の下の涙 - ミューズ・クロニクル：硝子の靴と泥の足">
+	<meta name="twitter:description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』仮面の下の涙を公開しています。">
+	<meta name="twitter:image" content="https://kamomeashizawa.github.io/bio/img/card02.png">
+
+	<meta http-equiv="Content-Language" content="ja">
+	<meta name="google" content="notranslate">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon_kamome.ico" type="image/vnd.microsoft.icon">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+
+	<style>
+		/* カスタム設定 */
+		:root {
+			--c-gold: #d4af37;
+			--c-gold-dim: #8a7326;
+			--c-dark: #0a0a0c;
+			--c-dark-blue: #0f172a;
+			--c-accent: #7c3aed;
+		}
+
+		body {
+			background-color: var(--c-dark);
+			color: #e2e8f0;
+			font-family: 'Shippori Mincho', serif;
+			overflow-x: hidden;
+		}
+
+		.font-cinzel {
+			font-family: 'Cinzel', serif;
+		}
+
+		/* 背景キャンバス */
+		#particle-canvas {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: radial-gradient(circle at center, #1a1b26 0%, #000000 100%);
+		}
+
+		/* スクロールアニメーション */
+		.reveal-on-scroll {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+			filter: blur(5px);
+		}
+
+		.reveal-on-scroll.is-visible {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
+
+		/* 装飾的な境界線 */
+		.ornamental-border {
+			border: 1px solid transparent;
+			border-image: linear-gradient(to right, transparent, var(--c-gold-dim), transparent) 1;
+		}
+
+		/* 光るテキスト効果 */
+		.glow-text {
+			text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+		}
+
+		/* 古文書風テクスチャ */
+		.texture-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 50;
+			opacity: 0.05;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+		}
+
+		/* 魔法陣風の回転装飾 */
+		.magic-circle {
+			animation: spin 60s linear infinite;
+		}
+		@keyframes spin { 100% { transform: rotate(360deg); } }
+
+		/* エピソードコンテンツ */
+		.episode-header-content {
+			min-height: 50vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 3rem 1rem;
+		}
+
+		.episode-header-content h1 {
+			font-size: 3.5rem;
+			font-weight: bold;
+			color: #fcd34d;
+			margin-bottom: 1rem;
+		}
+
+		.episode-header-content p {
+			color: #cbd5e1;
+		}
+
+		.episode-content {
+			font-size: 1.05rem;
+			line-height: 2;
+			color: #cbd5e1;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.episode-content p {
+			margin-bottom: 2rem;
+			text-align: justify;
+			text-indent: 2em;
+		}
+
+		.episode-content p:first-of-type {
+			text-indent: 0;
+		}
+
+		.scene-break {
+			text-align: center;
+			margin: 3rem 0;
+			color: #8a7326;
+			font-size: 1.5rem;
+		}
+
+		/* ナビゲーション */
+		.navigation-buttons {
+			margin-top: 3rem;
+			margin-bottom: 3rem;
+			display: flex;
+			justify-content: center;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.navigation-buttons a {
+			padding: 0.75rem 1.5rem;
+			background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			text-decoration: none;
+			border-radius: 0.25rem;
+			transition: opacity 0.3s ease;
+			display: inline-block;
+		}
+
+		.navigation-buttons a:hover {
+			opacity: 0.8;
+			text-decoration: none;
+			color: white;
+		}
+
+		/* ヘッダーナビゲーション */
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 40;
+			padding: 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			mix-blend-mode: difference;
+			opacity: 0.8;
+			background: transparent;
+		}
+
+		header .nav-title {
+			color: #fbbf24;
+			font-family: 'Cinzel', serif;
+			letter-spacing: 0.15em;
+			font-size: 0.875rem;
+		}
+
+		header .nav-subtitle {
+			color: #94a3b8;
+			font-size: 0.75rem;
+			letter-spacing: 0.05em;
+		}
+
+		/* コンテナ調整 */
+		main {
+			position: relative;
+			z-index: 10;
+			max-width: 56rem;
+			margin: 0 auto;
+			padding: 0 1.5rem 8rem 1.5rem;
+			padding-top: 5rem;
+		}
+
+		/* セクションパディング */
+		section {
+			padding: 6rem 0;
+		}
+
+		/* フッター */
+		footer {
+			margin-top: 5rem;
+			padding-bottom: 5rem;
+			text-align: right;
+		}
+
+		footer .footer-content {
+			display: inline-block;
+			text-align: left;
+		}
+
+		footer .footer-label {
+			font-size: 0.875rem;
+			color: #64748b;
+			letter-spacing: 0.1em;
+			font-family: 'Cinzel', serif;
+			margin-bottom: 0.5rem;
+		}
+
+		footer .footer-text {
+			font-size: 1rem;
+			color: #d4af37;
+			font-family: 'Shippori Mincho', serif;
+		}
+	</style>
+</head>
+<body class="antialiased relative">
+
+	<!-- 背景キャンバス -->
+	<canvas id="particle-canvas"></canvas>
+	<!-- ノイズテクスチャ -->
+	<div class="texture-overlay"></div>
+
+	<header>
+		<div id="navbarloc">
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="../../index.html">Kamome Ashizawa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  </nav>
+	</header>
+
+<div class="container" style="background-color: var(--c-dark); padding: 0;">
+
+	<div class="page-header" id="episode-header" style="background-color: var(--c-dark); margin-top: 4rem; padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="episode-header-content reveal-on-scroll">
+					<div style="margin-bottom: 1.5rem;">
+						<svg style="width: 4rem; height: 4rem; color: #d4af37; margin: 0 auto; animation: spin 60s linear infinite;" class="magic-circle" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+							<circle cx="50" cy="50" r="45" />
+							<rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)" />
+						</svg>
+					</div>
+					<p style="color: #8a7326; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1rem; font-family: 'Cinzel', serif;">MUSE CHRONICLE</p>
+					<h1 style="font-size: 3.5rem; font-weight: bold; color: #fcd34d; margin-bottom: 1rem;">
+						仮面の下の涙
+					</h1>
+					<p style="font-size: 1.25rem; color: #cbd5e1; margin-bottom: 1.5rem; font-family: 'Shippori Mincho', serif;">
+						ミューズ・クロニクル：硝子の靴と泥の足
+					</p>
+					<div style="height: 6rem; width: 1px; background: linear-gradient(to bottom, #d4af37, transparent); margin: 2.5rem auto 0;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-header" id="episode-content" style="background-color: var(--c-dark); padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div style="padding: 2rem; background: rgba(15, 23, 42, 0.6); border-left: 2px solid rgba(212, 175, 55, 0.5); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">
+					<div class="episode-content">
+					<p>
+						仮面は、泣くことができない。
+					</p>
+					<p>
+						そう思ったのは、フルフェイスのマスクの下で、私の頬を涙が伝っているのに、誰もそれに気づかないからだ。
+					</p>
+					<p>
+						私はリナ。
+					</p>
+					<p>
+						いや、今の私は「レイス（亡霊）」。
+					</p>
+					<p>
+						反体制組織「ダスト」の破壊工作員。
+					</p>
+					<p>
+						そして――アルドの妹。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						あの夜のことを、私は忘れられない。
+					</p>
+					<p>
+						襲撃が失敗に終わり、仲間たちと共に下層（アーカイブ）のアジトに逃げ帰った時。私は一人、部屋の隅で膝を抱えていた。
+					</p>
+					<p>
+						マスクを外す。
+					</p>
+					<p>
+						鏡に映った自分の顔を見る。
+					</p>
+					<p>
+						憎悪に歪んだ顔。
+					</p>
+					<p>
+						いや、違う。
+					</p>
+					<p>
+						これは――悲しみに歪んだ顔だ。
+					</p>
+					<p>
+						「どうして、泣いてるんだろう」
+					</p>
+					<p>
+						私は、自分の頬を触った。
+					</p>
+					<p>
+						涙が、止まらなかった。
+					</p>
+					<p>
+						兄さんを傷つけてしまった。
+					</p>
+					<p>
+						あの人の肩を、ナイフで切り裂いた。
+					</p>
+					<p>
+						血が流れた。
+					</p>
+					<p>
+						兄さんの血。
+					</p>
+					<p>
+						私を守るために、いつも傷だらけになっていた、あの優しい兄さんの血。
+					</p>
+					<p>
+						「ごめんなさい……」
+					</p>
+					<p>
+						誰にも聞こえない声で、私は謝った。
+					</p>
+					<p>
+						でも、謝っても何も変わらない。
+					</p>
+					<p>
+						私は、もう引き返せない道を選んでしまったから。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						どうして、こうなってしまったんだろう。
+					</p>
+					<p>
+						私が「ダスト」に加わったのは、一年前だった。
+					</p>
+					<p>
+						きっかけは、ある事件。
+					</p>
+					<p>
+						スラムの友達、セリアが死んだことだった。
+					</p>
+					<p>
+						セリアは、私と同じ十六歳の少女だった。彼女も下層で暮らしていて、いつか上層に行くことを夢見ていた。でも、上層への移住許可を得るには、莫大な費用が必要だった。
+					</p>
+					<p>
+						セリアは、金を稼ぐために違法な仕事に手を出した。上層の富裕層向けの、危険な薬物の密造。それがバレて、セリアは治安部隊に捕まった。
+					</p>
+					<p>
+						そして――処刑された。
+					</p>
+					<p>
+						「展示不適格な人間は、廃棄される」
+					</p>
+					<p>
+						そう言って、彼女はゴミのように捨てられた。
+					</p>
+					<p>
+						私は、その現場を見ていた。
+					</p>
+					<p>
+						セリアが、泣き叫びながら連行されていくのを。
+					</p>
+					<p>
+						「助けて！私、まだ死にたくない！」
+					</p>
+					<p>
+						でも、誰も助けなかった。
+					</p>
+					<p>
+						上層の人間は、見て見ぬふりをした。
+					</p>
+					<p>
+						そして、兄さんも――。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						あの日、私は兄さんに言った。
+					</p>
+					<p>
+						「セリアが捕まったの。助けて、兄さん」
+					</p>
+					<p>
+						兄さんは、困った顔をした。
+					</p>
+					<p>
+						「リナ、それは……俺には、どうしようもない」
+					</p>
+					<p>
+						「どうして！？兄さん、上層で働いてるんでしょ!?」
+					</p>
+					<p>
+						「でも、俺は護衛官で……治安部隊とは管轄が違うんだ」
+					</p>
+					<p>
+						「じゃあ、誰かに頼んでよ！お願い！」
+					</p>
+					<p>
+						私は、必死で頼んだ。
+					</p>
+					<p>
+						でも、兄さんは首を横に振った。
+					</p>
+					<p>
+						「リナ、セリアは法を犯したんだ。それは……仕方ないことなんだ」
+					</p>
+					<p>
+						「仕方ない!?」
+					</p>
+					<p>
+						私の声が、裏返った。
+					</p>
+					<p>
+						「セリアは、上層に行きたかっただけなのよ！あなたみたいに、綺麗な場所で暮らしたかっただけなのよ！それが、どうして死刑になるの!?」
+					</p>
+					<p>
+						「リナ……」
+					</p>
+					<p>
+						「答えてよ、兄さん！」
+					</p>
+					<p>
+						兄さんは、何も答えられなかった。
+					</p>
+					<p>
+						ただ、悲しそうな目で私を見つめるだけだった。
+					</p>
+					<p>
+						そして――セリアは、翌日処刑された。
+					</p>
+					<p>
+						私は、その時に悟った。
+					</p>
+					<p>
+						兄さんは、私を愛してる。
+					</p>
+					<p>
+						でも、兄さんが愛してるのは「守るべき妹」としての私であって、「一人の人間」としての私じゃない。
+					</p>
+					<p>
+						兄さんは、システムの一部になってしまったんだ。
+					</p>
+					<p>
+						上層の「綺麗な世界」を守るために、下層の痛みに目を瞑るようになってしまったんだ。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						その後、私は「ダスト」のメンバーと出会った。
+					</p>
+					<p>
+						彼らは、私に言った。
+					</p>
+					<p>
+						「この世界は、腐ってる。上層は下層を搾取し、痛みを隠蔽し、歴史を改竄している。それを正すには、システムそのものを破壊するしかない」
+					</p>
+					<p>
+						私は、その言葉に共感した。
+					</p>
+					<p>
+						そして、組織に加わった。
+					</p>
+					<p>
+						訓練を受けた。戦い方を学んだ。そして――「レイス（亡霊）」というコードネームを与えられた。
+					</p>
+					<p>
+						「お前は、システムに殺された者たちの亡霊だ。復讐の刃となれ」
+					</p>
+					<p>
+						私は、その言葉を胸に刻んだ。
+					</p>
+					<p>
+						でも――。
+					</p>
+					<p>
+						本当に、復讐したかったのは誰に対してだろう。
+					</p>
+					<p>
+						上層の人間？
+					</p>
+					<p>
+						システム？
+					</p>
+					<p>
+						それとも――兄さんに？
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						マスクの下で、私は泣き続けた。
+					</p>
+					<p>
+						あの襲撃の夜。
+					</p>
+					<p>
+						私は、ソフィアを殺そうとした。
+					</p>
+					<p>
+						彼女は、上層の学芸員。改革派として知られているけれど、結局は特権階級の一員。綺麗事を言いながら、下層の痛みを本当には理解していない偽善者。
+					</p>
+					<p>
+						そして――兄さんが守ろうとしている「象徴」。
+					</p>
+					<p>
+						だから、私は彼女を殺そうとした。
+					</p>
+					<p>
+						兄さんの大切なものを壊すことで、兄さんに痛みを知ってほしかった。
+					</p>
+					<p>
+						でも――。
+					</p>
+					<p>
+						兄さんが、叫んだ。
+					</p>
+					<p>
+						「やめろ、リナ！」
+					</p>
+					<p>
+						その声を聞いた時、私の手が止まった。
+					</p>
+					<p>
+						まるで、子供の頃に戻ったみたいだった。
+					</p>
+					<p>
+						悪いことをして、兄さんに叱られた時のように。
+					</p>
+					<p>
+						私は、ソフィアを殺せなかった。
+					</p>
+					<p>
+						兄さんの声が、私を止めてしまった。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						そして、私は逃げた。
+					</p>
+					<p>
+						アジトに戻る前に、私はアパートに立ち寄った。
+					</p>
+					<p>
+						兄さんはまだ、医務室にいるはずだ。
+					</p>
+					<p>
+						私は、自分の部屋に入った。
+					</p>
+					<p>
+						私物を集める。服、本、思い出の品々。すべてを持ち去る。
+					</p>
+					<p>
+						もう、ここには戻らない。
+					</p>
+					<p>
+						兄さんとは、もう会わない。
+					</p>
+					<p>
+						そう決めたから。
+					</p>
+					<p>
+						でも――最後に、兄さんの部屋に入った。
+					</p>
+					<p>
+						ロッカーを開ける。
+					</p>
+					<p>
+						一番上の棚に、靴箱があった。
+					</p>
+					<p>
+						「これ……」
+					</p>
+					<p>
+						私は、その箱を開けた。
+					</p>
+					<p>
+						中には、純白のスニーカーが入っていた。
+					</p>
+					<p>
+						流行の、高級ブランドの靴。
+					</p>
+					<p>
+						私のサイズ。
+					</p>
+					<p>
+						これは――誕生日プレゼント？
+					</p>
+					<p>
+						「兄さん……」
+					</p>
+					<p>
+						胸が、締め付けられた。
+					</p>
+					<p>
+						兄さんは、こんなものを買ってくれたんだ。
+					</p>
+					<p>
+						給料の、きっと一ヶ月分くらいするはずだ。
+					</p>
+					<p>
+						でも――。
+					</p>
+					<p>
+						「私には、もういらないの」
+					</p>
+					<p>
+						私は、靴を一足だけ取り出した。
+					</p>
+					<p>
+						そして、履いてみた。
+					</p>
+					<p>
+						ぴったりだった。
+					</p>
+					<p>
+						柔らかくて、軽くて、まるで雲の上を歩いているみたいだった。
+					</p>
+					<p>
+						でも――。
+					</p>
+					<p>
+						私の足は、もう泥に塗れてる。
+					</p>
+					<p>
+						こんな綺麗な靴は、似合わない。
+					</p>
+					<p>
+						私は、靴を脱いだ。
+					</p>
+					<p>
+						そして、わざと泥だらけの床に置いた。
+					</p>
+					<p>
+						片方だけ、汚して。
+					</p>
+					<p>
+						「ごめんなさい、兄さん」
+					</p>
+					<p>
+						私は、メモを書いた。
+					</p>
+					<p>
+						最後の、お別れの言葉。
+					</p>
+					<p>
+						そして――アパートを出た。
+					</p>
+					<p>
+						二度と、振り返らずに。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						現在。
+					</p>
+					<p>
+						私は、ダストのアジトで、仲間たちと次の作戦を練っていた。
+					</p>
+					<p>
+						「次はもっと大規模にやる。博物館の中枢、管理システムを破壊する」
+					</p>
+					<p>
+						リーダーが、そう言った。
+					</p>
+					<p>
+						「レイス、お前にまた潜入を頼む」
+					</p>
+					<p>
+						「……分かった」
+					</p>
+					<p>
+						私は、頷いた。
+					</p>
+					<p>
+						でも、心の中では迷っていた。
+					</p>
+					<p>
+						本当に、これでいいのか。
+					</p>
+					<p>
+						兄さんと、完全に敵対することになる。
+					</p>
+					<p>
+						次に会った時は――殺し合いになるかもしれない。
+					</p>
+					<p>
+						それでも――。
+					</p>
+					<p>
+						「私は、進むしかない」
+					</p>
+					<p>
+						呟いた声は、誰にも聞こえなかった。
+					</p>
+					<p>
+						仮面の下で、また涙が流れた。
+					</p>
+					<p>
+						でも、誰も気づかない。
+					</p>
+					<p>
+						私は、亡霊だから。
+					</p>
+					<p>
+						感情を持たない、復讐の刃だから。
+					</p>
+					<p>
+						そう、自分に言い聞かせながら。
+					</p>
+					<p>
+						でも――本当は、私は知っている。
+					</p>
+					<p>
+						私が一番憎んでいるのは、システムでも上層でもなく――。
+					</p>
+					<p>
+						「兄さんを選べなかった、自分自身」
+					</p>
+					<p>
+						なのだと。
+					</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+
+	<div class="row" style="background-color: var(--c-dark); padding: 0 2rem;">
+		<div class="col-lg-10 offset-lg-1">
+			<hr style="border-color: rgba(212, 175, 55, 0.3);">
+			<div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+				<a href="novel-muse-chronicle-ep05.html" class="btn btn-secondary">&larr; 前の話</a>
+				<a href="novel-muse-chronicle.html" class="btn btn-primary">話一覧に戻る</a>
+				<a href="novel-muse-chronicle-ep07.html" class="btn btn-secondary">次の話 &rarr;</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+	<script>
+		// パーティクルエフェクト
+		const canvas = document.getElementById('particle-canvas');
+		const ctx = canvas.getContext('2d');
+		let particles = [];
+		let animationId;
+
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+
+		class Particle {
+			constructor() {
+				this.reset();
+			}
+
+			reset() {
+				this.x = Math.random() * canvas.width;
+				this.y = Math.random() * canvas.height;
+				this.size = Math.random() * 2 + 0.5;
+				const colors = ['rgba(212, 175, 55, ', 'rgba(100, 116, 139, '];
+				this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+				this.opacity = Math.random() * 0.5;
+				this.speedY = Math.random() * -0.5 - 0.1;
+				this.speedX = Math.random() * 0.4 - 0.2;
+			}
+
+			update() {
+				this.y += this.speedY;
+				this.x += this.speedX;
+
+				if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+					this.reset();
+					this.y = canvas.height;
+				}
+			}
+
+			draw() {
+				ctx.fillStyle = this.colorBase + this.opacity + ')';
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+
+		function initParticles() {
+			resizeCanvas();
+			particles = [];
+			const particleCount = Math.min(window.innerWidth / 5, 100);
+			for (let i = 0; i < particleCount; i++) {
+				particles.push(new Particle());
+			}
+		}
+
+		function animateParticles() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			particles.forEach(p => {
+				p.update();
+				p.draw();
+			});
+			animationId = requestAnimationFrame(animateParticles);
+		}
+
+		window.addEventListener('resize', () => {
+			resizeCanvas();
+			initParticles();
+		});
+
+		initParticles();
+		animateParticles();
+
+		// スクロールアニメーション
+		const observerOptions = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.15
+		};
+
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
+			observer.observe(section);
+		});
+	</script>
+
+<nav class="navbar navbar-expand-xl bg-dark navbar-dark bottom justify-content-center">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+		  <a class="nav-link">© 2021 Kamome Ashizawa</a>
+		</li>
+	</ul>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $('.bs-component [data-toggle="popover"]').popover();
+  $('.bs-component [data-toggle="tooltip"]').tooltip();
+</script>
+</body>
+</html>
+
+

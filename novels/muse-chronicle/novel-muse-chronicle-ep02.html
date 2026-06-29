@@ -1,0 +1,678 @@
+<html lang="ja">
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-C1DKWQW2BF"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-C1DKWQW2BF');
+	</script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>食卓の嘘 - ミューズ・クロニクル：硝子の靴と泥の足 - 葦沢かもめ</title>
+	<meta name="description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』食卓の嘘を公開しています。">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="Twitter:site" content="@AshizawaKamome">
+	<meta name="twitter:title" content="食卓の嘘 - ミューズ・クロニクル：硝子の靴と泥の足">
+	<meta name="twitter:description" content="小説『ミューズ・クロニクル：硝子の靴と泥の足』食卓の嘘を公開しています。">
+	<meta name="twitter:image" content="https://kamomeashizawa.github.io/bio/img/card02.png">
+
+	<meta http-equiv="Content-Language" content="ja">
+	<meta name="google" content="notranslate">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon_kamome.ico" type="image/vnd.microsoft.icon">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+
+	<style>
+		/* カスタム設定 */
+		:root {
+			--c-gold: #d4af37;
+			--c-gold-dim: #8a7326;
+			--c-dark: #0a0a0c;
+			--c-dark-blue: #0f172a;
+			--c-accent: #7c3aed;
+		}
+
+		body {
+			background-color: var(--c-dark);
+			color: #e2e8f0;
+			font-family: 'Shippori Mincho', serif;
+			overflow-x: hidden;
+		}
+
+		.font-cinzel {
+			font-family: 'Cinzel', serif;
+		}
+
+		/* 背景キャンバス */
+		#particle-canvas {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: radial-gradient(circle at center, #1a1b26 0%, #000000 100%);
+		}
+
+		/* スクロールアニメーション */
+		.reveal-on-scroll {
+			opacity: 0;
+			transform: translateY(30px);
+			transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+			filter: blur(5px);
+		}
+
+		.reveal-on-scroll.is-visible {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
+
+		/* 装飾的な境界線 */
+		.ornamental-border {
+			border: 1px solid transparent;
+			border-image: linear-gradient(to right, transparent, var(--c-gold-dim), transparent) 1;
+		}
+
+		/* 光るテキスト効果 */
+		.glow-text {
+			text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+		}
+
+		/* 古文書風テクスチャ */
+		.texture-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 50;
+			opacity: 0.05;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+		}
+
+		/* 魔法陣風の回転装飾 */
+		.magic-circle {
+			animation: spin 60s linear infinite;
+		}
+		@keyframes spin { 100% { transform: rotate(360deg); } }
+
+		/* エピソードコンテンツ */
+		.episode-header-content {
+			min-height: 50vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 3rem 1rem;
+		}
+
+		.episode-header-content h1 {
+			font-size: 3.5rem;
+			font-weight: bold;
+			color: #fcd34d;
+			margin-bottom: 1rem;
+		}
+
+		.episode-header-content p {
+			color: #cbd5e1;
+		}
+
+		.episode-content {
+			font-size: 1.05rem;
+			line-height: 2;
+			color: #cbd5e1;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.episode-content p {
+			margin-bottom: 2rem;
+			text-align: justify;
+			text-indent: 2em;
+		}
+
+		.episode-content p:first-of-type {
+			text-indent: 0;
+		}
+
+		.scene-break {
+			text-align: center;
+			margin: 3rem 0;
+			color: #8a7326;
+			font-size: 1.5rem;
+		}
+
+		/* ナビゲーション */
+		.navigation-buttons {
+			margin-top: 3rem;
+			margin-bottom: 3rem;
+			display: flex;
+			justify-content: center;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.navigation-buttons a {
+			padding: 0.75rem 1.5rem;
+			background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			text-decoration: none;
+			border-radius: 0.25rem;
+			transition: opacity 0.3s ease;
+			display: inline-block;
+		}
+
+		.navigation-buttons a:hover {
+			opacity: 0.8;
+			text-decoration: none;
+			color: white;
+		}
+
+		/* ヘッダーナビゲーション */
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 40;
+			padding: 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			mix-blend-mode: difference;
+			opacity: 0.8;
+			background: transparent;
+		}
+
+		header .nav-title {
+			color: #fbbf24;
+			font-family: 'Cinzel', serif;
+			letter-spacing: 0.15em;
+			font-size: 0.875rem;
+		}
+
+		header .nav-subtitle {
+			color: #94a3b8;
+			font-size: 0.75rem;
+			letter-spacing: 0.05em;
+		}
+
+		/* コンテナ調整 */
+		main {
+			position: relative;
+			z-index: 10;
+			max-width: 56rem;
+			margin: 0 auto;
+			padding: 0 1.5rem 8rem 1.5rem;
+			padding-top: 5rem;
+		}
+
+		/* セクションパディング */
+		section {
+			padding: 6rem 0;
+		}
+
+		/* フッター */
+		footer {
+			margin-top: 5rem;
+			padding-bottom: 5rem;
+			text-align: right;
+		}
+
+		footer .footer-content {
+			display: inline-block;
+			text-align: left;
+		}
+
+		footer .footer-label {
+			font-size: 0.875rem;
+			color: #64748b;
+			letter-spacing: 0.1em;
+			font-family: 'Cinzel', serif;
+			margin-bottom: 0.5rem;
+		}
+
+		footer .footer-text {
+			font-size: 1rem;
+			color: #d4af37;
+			font-family: 'Shippori Mincho', serif;
+		}
+	</style>
+</head>
+<body class="antialiased relative">
+
+	<!-- 背景キャンバス -->
+	<canvas id="particle-canvas"></canvas>
+	<!-- ノイズテクスチャ -->
+	<div class="texture-overlay"></div>
+
+	<header>
+		<div id="navbarloc">
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<a class="navbar-brand" href="../../index.html">Kamome Ashizawa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  </nav>
+	</header>
+
+<div class="container" style="background-color: var(--c-dark); padding: 0;">
+
+	<div class="page-header" id="episode-header" style="background-color: var(--c-dark); margin-top: 4rem; padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="episode-header-content reveal-on-scroll">
+					<div style="margin-bottom: 1.5rem;">
+						<svg style="width: 4rem; height: 4rem; color: #d4af37; margin: 0 auto; animation: spin 60s linear infinite;" class="magic-circle" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+							<circle cx="50" cy="50" r="45" />
+							<rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)" />
+						</svg>
+					</div>
+					<p style="color: #8a7326; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 1rem; font-family: 'Cinzel', serif;">MUSE CHRONICLE</p>
+					<h1 style="font-size: 3.5rem; font-weight: bold; color: #fcd34d; margin-bottom: 1rem;">
+						食卓の嘘
+					</h1>
+					<p style="font-size: 1.25rem; color: #cbd5e1; margin-bottom: 1.5rem; font-family: 'Shippori Mincho', serif;">
+						ミューズ・クロニクル：硝子の靴と泥の足
+					</p>
+					<div style="height: 6rem; width: 1px; background: linear-gradient(to bottom, #d4af37, transparent); margin: 2.5rem auto 0;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-header" id="episode-content" style="background-color: var(--c-dark); padding: 2rem 0;">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div style="padding: 2rem; background: rgba(15, 23, 42, 0.6); border-left: 2px solid rgba(212, 175, 55, 0.5); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">
+					<div class="episode-content">
+					<p>
+						嘘は、スープの湯気に紛れて見えなくなる。
+					</p>
+					<p>
+						俺がそう思ったのは、リナの淹れたコーンスープの甘い香りが部屋中に満ちていたからかもしれない。あるいは、彼女の笑顔があまりにも無邪気で、疑うことなど微塵も思いつかなかったからかもしれない。
+					</p>
+					<p>
+						「兄さん、お疲れ様」
+					</p>
+					<p>
+						リナは小さなテーブルに皿を並べながら、そう言って笑った。エプロンの裾が少し擦り切れているのが見えた。もう三年も使っているから、そろそろ新しいのを買ってやらなきゃな、と俺は思った。でも今月は、あの白い靴に全財産を使ってしまった。来月、来月には必ず。
+					</p>
+					<p>
+						俺は靴箱を抱えたまま、どこに隠そうか考えた。クローゼットの中？いや、リナは時々俺の服を洗濯してくれるから、すぐにバレる。ベッドの下？ありきたりすぎる。そうだ、ロッカーの一番上の棚なら――。
+					</p>
+					<p>
+						「兄さん、何持ってるの？」
+					</p>
+					<p>
+						リナの声に、俺は思わずびくりとした。
+					</p>
+					<p>
+						「あ、いや、これは……仕事の、書類だよ」
+					</p>
+					<p>
+						「書類？靴箱みたいだけど」
+					</p>
+					<p>
+						鋭い。リナは昔から観察眼が鋭かった。スラムで生き抜くためには、周囲の変化を敏感に察知する必要があったから、当然と言えば当然だ。でも今は、その鋭さが少し厄介だった。
+					</p>
+					<p>
+						「ああ、そう見えるかもな。でも書類なんだ。明日、上司に提出しなきゃならなくて」
+					</p>
+					<p>
+						嘘をつくのは嫌いだった。でも、サプライズのためなら仕方ない。俺はそう自分に言い聞かせて、靴箱を背中に隠しながら寝室へと向かった。
+					</p>
+					<p>
+						「ごめん、先にシャワー浴びてくる。待たせるな」
+					</p>
+					<p>
+						「うん、分かった」
+					</p>
+					<p>
+						リナの声が、背後から聞こえた。いつもと同じ、優しい声。俺は安心して、ドアを閉めた。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						シャワーの水が、一日の疲れを洗い流していく。
+					</p>
+					<p>
+						上層の仕事は、体力的にはそれほどきつくない。でも精神的には、毎日がすり減っていくような感覚だった。富裕層のゲストたちは、俺のことを「護衛官」ではなく、「家具」のように扱う。声をかけられることすらほとんどない。ただそこに立っていろ、邪魔をするな、空気のように存在しろ――そういう無言のプレッシャーが、いつも俺を押し潰そうとしていた。
+					</p>
+					<p>
+						でも、それでいいんだ。
+					</p>
+					<p>
+						俺が我慢すれば、リナが幸せになれる。それだけでいい。
+					</p>
+					<p>
+						シャワーを浴び終えて、タオルで体を拭きながら、俺は寝室のロッカーを開けた。一番上の棚に、靴箱を押し込む。明日の夜、仕事から帰ってきたら、これをリナに渡すんだ。あいつがどんな顔をするか、想像するだけで胸が高鳴った。
+					</p>
+					<p>
+						部屋を出ると、リナがすでにテーブルに座っていた。コーンスープの他に、パンとサラダが並んでいる。質素な夕食だけれど、リナが作ってくれたものなら、それだけで十分だった。
+					</p>
+					<p>
+						「いただきます」
+					</p>
+					<p>
+						二人で手を合わせる。この儀式だけは、両親が生きていた頃から変わらない。母さんが「感謝の心を忘れちゃいけないよ」と言っていたのを、俺は今でも覚えている。
+					</p>
+					<p>
+						スープを一口飲む。優しい甘さが口の中に広がった。リナはいつも、俺の好みを覚えていてくれる。少し甘めのスープ、柔らかめのパン、ドレッシングは控えめに。こんな細やかな気遣いができる妹を、俺はどれだけ誇りに思っているか。
+					</p>
+					<p>
+						「美味しいよ、リナ」
+					</p>
+					<p>
+						「ありがとう、兄さん」
+					</p>
+					<p>
+						リナが微笑む。その笑顔を見ていると、どんなに辛い一日でも報われる気がした。
+					</p>
+					<p>
+						「そういえば、明日は夜勤なんだ」
+					</p>
+					<p>
+						俺は何気なくそう言った。職場の話をするのは、リナとの会話のネタとして習慣になっていた。
+					</p>
+					<p>
+						「夜勤？珍しいね」
+					</p>
+					<p>
+						「ああ、特別展があってさ。『フランス革命の夜明け』っていう企画展なんだけど、富裕層のゲストがたくさん来るらしくて、警備が厳重なんだ」
+					</p>
+					<p>
+						「ふーん、大変そうだね」
+					</p>
+					<p>
+						リナはスープを飲みながら、興味なさそうに相槌を打った。でも俺は、話し続けた。
+					</p>
+					<p>
+						「配置もいつもと違ってさ。俺は第三展示室の担当になったんだ。あそこ、ホログラム装置が複雑で、警備ルートが入り組んでるんだよな。同僚のジョンが『迷子になるなよ』って笑ってたよ」
+					</p>
+					<p>
+						「へえ、そうなんだ」
+					</p>
+					<p>
+						リナの声が、少しだけ遠い気がした。でも俺は気づかなかった。彼女が、俺の言葉の一つ一つを、まるで暗号を解読するかのように記憶していることに。
+					</p>
+					<p>
+						「でもまあ、明日終われば三連休だからさ。その時、ゆっくり出かけようか。リナの誕生日、ちゃんと祝いたいし」
+					</p>
+					<p>
+						「兄さん、無理しなくていいよ。私、別に誕生日とか気にしないから」
+					</p>
+					<p>
+						「駄目だ。年に一度の大事な日だろ。ちゃんと祝わせてくれ」
+					</p>
+					<p>
+						俺はそう言って、リナの頭を軽く撫でた。彼女は少し恥ずかしそうに笑って、俺の手を払った。
+					</p>
+					<p>
+						「もう、子供扱いしないでよ」
+					</p>
+					<p>
+						「お前はいつまで経っても、俺の可愛い妹だよ」
+					</p>
+					<p>
+						その言葉に嘘はなかった。本当に、心からそう思っていた。
+					</p>
+					<p>
+						でも――。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						食事が終わり、リナが皿を洗っている間、俺はソファでニュース映像を眺めていた。博物館惑星ミューズの公式チャンネルでは、相変わらず「美しい歴史」の特集が流れている。今日は「産業革命の光輝」。蒸気機関の発明、工場の繁栄、人類の進歩。でも、そこで働かされていた子供たちの悲鳴や、汚染された川の映像は一切流れない。
+					</p>
+					<p>
+						綺麗な嘘。
+					</p>
+					<p>
+						ソフィアが言っていた言葉を思い出す。彼女は俺の職場の学芸員で、いつも上層部の検閲方針に反対している改革派だ。「歴史を美化するだけでは、人は過ちを繰り返す」と彼女は言った。その言葉に、俺は何も返せなかった。
+					</p>
+					<p>
+						だって、俺自身が「綺麗な嘘」の中で生きているから。
+					</p>
+					<p>
+						リナに本当のことを言えない。上層の仕事がどれだけ屈辱的か。毎日、どれだけ見下されているか。スラム出身者だとバレないように、どれだけ言葉遣いに気をつけているか。そんなこと、リナに知られたくない。あいつには、兄が立派に働いているという「綺麗な嘘」を信じていてほしい。
+					</p>
+					<p>
+						「兄さん、お風呂空いてるよ」
+					</p>
+					<p>
+						リナの声で、俺は現実に引き戻された。
+					</p>
+					<p>
+						「ああ、ありがとう。じゃあ、そろそろ寝るか」
+					</p>
+					<p>
+						「うん、おやすみなさい」
+					</p>
+					<p>
+						「おやすみ、リナ」
+					</p>
+					<p>
+						俺は自分の部屋に入り、ベッドに横たわった。薄い壁越しに、リナが自分の部屋で動いている気配がする。彼女も、もう寝る準備をしているんだろう。
+					</p>
+					<p>
+						明日、きっと喜んでくれる。
+					</p>
+					<p>
+						そう思いながら、俺は目を閉じた。
+					</p>
+					<p>
+						\***
+					</p>
+					<p>
+						しかし、俺が知らないところで――。
+					</p>
+					<p>
+						リナは、自分の部屋で、まったく違う顔をしていた。
+					</p>
+					<p>
+						彼女は枕の下から、小型の通信端末を取り出した。闇市で手に入れた、追跡不可能な違法デバイス。画面を起動させると、暗号化されたメッセージが次々と表示される。
+					</p>
+					<p>
+						『レイス、明日の作戦、準備はいいか？』
+					</p>
+					<p>
+						リナ――いや、コードネーム「レイス（亡霊）」は、冷たい瞳でキーボードを叩いた。
+					</p>
+					<p>
+						『問題ない。侵入ルートは確認した。第三展示室、ホログラム装置周辺の警備が手薄になる時間帯がある。兄から情報を得た』
+					</p>
+					<p>
+						『さすがだな。家族を利用するのは辛いだろうが』
+					</p>
+					<p>
+						『家族？』
+					</p>
+					<p>
+						リナは、自嘲するように笑った。
+					</p>
+					<p>
+						『あの人は、私を守ってるつもりでいるけど、本当は自分の良心を守ってるだけよ。「妹のため」って言えば、自分の保身を正当化できるから』
+					</p>
+					<p>
+						通信端末の画面に、作戦の詳細が送られてくる。明日の夜、特別展「フランス革命の夜明け」を襲撃する。目的は、上層部の象徴である学芸員ソフィアの排除。彼女は改革派として知られているが、それでも彼女は「システムの一部」だ。綺麗事を言いながら、結局は上層の特権を享受している偽善者。
+					</p>
+					<p>
+						『了解。明日、必ず成功させる』
+					</p>
+					<p>
+						メッセージを送信し、リナは端末を再び枕の下に隠した。
+					</p>
+					<p>
+						そして、彼女は薄い壁の向こうを見つめた。兄が眠っているであろう部屋の方向。
+					</p>
+					<p>
+						「ごめんね、兄さん」
+					</p>
+					<p>
+						小さく呟いた声は、誰にも届かなかった。
+					</p>
+					<p>
+						「でも、あなたの守る『綺麗な世界』は、私たちを踏みつけにして成り立ってるの。それを壊さなきゃ、本当の未来は来ない」
+					</p>
+					<p>
+						リナは目を閉じた。
+					</p>
+					<p>
+						明日、すべてが変わる。
+					</p>
+					<p>
+						兄が大切にしている「平穏」を壊す日。
+					</p>
+					<p>
+						そして、自分が愛した「優しい兄」を裏切る日。
+					</p>
+					<p>
+						温かいスープの湯気の向こうで、兄妹の心はすでに、決定的にすれ違っていた。
+					</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+
+	<div class="row" style="background-color: var(--c-dark); padding: 0 2rem;">
+		<div class="col-lg-10 offset-lg-1">
+			<hr style="border-color: rgba(212, 175, 55, 0.3);">
+			<div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
+				<a href="novel-muse-chronicle-ep01.html" class="btn btn-secondary">&larr; 前の話</a>
+				<a href="novel-muse-chronicle.html" class="btn btn-primary">話一覧に戻る</a>
+				<a href="novel-muse-chronicle-ep03.html" class="btn btn-secondary">次の話 &rarr;</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+	<script>
+		// パーティクルエフェクト
+		const canvas = document.getElementById('particle-canvas');
+		const ctx = canvas.getContext('2d');
+		let particles = [];
+		let animationId;
+
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+
+		class Particle {
+			constructor() {
+				this.reset();
+			}
+
+			reset() {
+				this.x = Math.random() * canvas.width;
+				this.y = Math.random() * canvas.height;
+				this.size = Math.random() * 2 + 0.5;
+				const colors = ['rgba(212, 175, 55, ', 'rgba(100, 116, 139, '];
+				this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+				this.opacity = Math.random() * 0.5;
+				this.speedY = Math.random() * -0.5 - 0.1;
+				this.speedX = Math.random() * 0.4 - 0.2;
+			}
+
+			update() {
+				this.y += this.speedY;
+				this.x += this.speedX;
+
+				if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+					this.reset();
+					this.y = canvas.height;
+				}
+			}
+
+			draw() {
+				ctx.fillStyle = this.colorBase + this.opacity + ')';
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+				ctx.fill();
+			}
+		}
+
+		function initParticles() {
+			resizeCanvas();
+			particles = [];
+			const particleCount = Math.min(window.innerWidth / 5, 100);
+			for (let i = 0; i < particleCount; i++) {
+				particles.push(new Particle());
+			}
+		}
+
+		function animateParticles() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			particles.forEach(p => {
+				p.update();
+				p.draw();
+			});
+			animationId = requestAnimationFrame(animateParticles);
+		}
+
+		window.addEventListener('resize', () => {
+			resizeCanvas();
+			initParticles();
+		});
+
+		initParticles();
+		animateParticles();
+
+		// スクロールアニメーション
+		const observerOptions = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.15
+		};
+
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
+			observer.observe(section);
+		});
+	</script>
+
+<nav class="navbar navbar-expand-xl bg-dark navbar-dark bottom justify-content-center">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+		  <a class="nav-link">© 2021 Kamome Ashizawa</a>
+		</li>
+	</ul>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $('.bs-component [data-toggle="popover"]').popover();
+  $('.bs-component [data-toggle="tooltip"]').tooltip();
+</script>
+</body>
+</html>
+
+
